@@ -1,4 +1,4 @@
-package com.umssonline.social.uosocialservice;
+package com.umssonline.social;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
