@@ -19,6 +19,6 @@ public class Score {
 
     @OneToMany(mappedBy = "score")
     private Set<Rate> rates;
-    @OneToOne(mappedBy = "score")
+    @OneToOne(optional = false)
     private Resource resource;
 }
