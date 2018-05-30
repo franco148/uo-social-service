@@ -1,4 +1,4 @@
 package com.umssonline.social.models;
 
-public class Image {
+public class Share {
 }

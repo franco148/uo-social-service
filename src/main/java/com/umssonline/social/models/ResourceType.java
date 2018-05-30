@@ -1,4 +1,5 @@
 package com.umssonline.social.models;
 
-public class Text {
+public enum ResourceType {
+    PROJECT
 }
