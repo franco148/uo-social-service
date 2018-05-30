@@ -3,6 +3,7 @@ package com.umssonline.social.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,8 +15,8 @@ public class Share {
     @Column(nullable = false)
     private Integer sharingAmount;
 
-    @ManyToOne(optional = false)
-    private Resource resource;
-    @ManyToOne(optional = false)
-    private Participant participant;
+    @OneToOne(optional = false)
+    private Resource sharedResource;
+    @OneToMany(mappedBy = "share")
+    private Set<ShareAction> shareActions;
 }

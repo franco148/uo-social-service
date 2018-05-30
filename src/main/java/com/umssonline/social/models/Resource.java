@@ -3,7 +3,6 @@ package com.umssonline.social.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
@@ -15,10 +14,10 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     private ResourceType type;
 
-    @OneToOne(mappedBy = "resource")
+    @OneToOne(mappedBy = "ratedResource")
     private Score score;
-    @OneToMany(mappedBy = "resource")
-    private Set<Share> shares;
-    @OneToOne(mappedBy = "resource")
+    @OneToOne(mappedBy = "sharedResource")
+    private Share share;
+    @OneToOne(mappedBy = "commentedResource")
     private Comment comment;
 }

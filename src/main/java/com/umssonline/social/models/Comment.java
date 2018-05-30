@@ -14,8 +14,8 @@ public class Comment {
     @Column(nullable = false)
     private Integer messagesAmount;
 
-    @OneToOne
-    private Resource resource;
-    @OneToMany
+    @OneToOne(optional = false)
+    private Resource commentedResource;
+    @OneToMany(mappedBy = "comment")
     private Set<Message> messages;
 }

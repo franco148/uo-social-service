@@ -7,22 +7,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Message {
+public class ShareAction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(nullable = false)
-    private String text;
-    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updatedAt;
+    private LocalDateTime sharedAt;
 
     @ManyToOne(optional = false)
-    private Participant createdBy;
+    private Participant sharedWith;
     @ManyToOne(optional = false)
-    private Comment comment;
+    private Participant sharedBy;
+
+    @ManyToOne(optional = false)
+    private Share share;
 }

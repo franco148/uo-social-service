@@ -14,6 +14,6 @@ public class Rate {
     @Column(nullable = false)
     private Float value;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Score score;
 }

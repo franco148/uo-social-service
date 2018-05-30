@@ -13,8 +13,10 @@ public class Participant {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @OneToMany(mappedBy = "participant")
-    private Set<Share> shares;
+    @OneToMany(mappedBy = "sharedBy")
+    private Set<ShareAction> shared;
+    @OneToMany(mappedBy = "sharedWith")
+    private Set<ShareAction> sharedWithMe;
     @OneToMany(mappedBy = "createdBy")
     private Set<Message> messages;
 }
