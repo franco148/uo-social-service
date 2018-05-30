@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.Collection;
 
-public abstract class AbstractJpaDao<T extends Serializable> {
+public abstract class AbstractJpaDao<T> {
 
     //region Properties
     private Class<T> clazz;

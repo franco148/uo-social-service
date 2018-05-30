@@ -15,10 +15,8 @@ public class Message {
     @Column(nullable = false)
     private String text;
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
 
     @ManyToOne(optional = false)
