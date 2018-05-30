@@ -1,4 +1,4 @@
-package com.umssonline.social.uosocialservice;
+package com.umssonline.social;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
