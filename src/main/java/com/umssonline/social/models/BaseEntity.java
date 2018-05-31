@@ -16,7 +16,9 @@ public abstract class BaseEntity {
     private LocalDateTime updatedAt;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_CreatedBy")
     private Participant createdBy;
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_UpdatedBy")
     private Participant updatedBy;
 }
