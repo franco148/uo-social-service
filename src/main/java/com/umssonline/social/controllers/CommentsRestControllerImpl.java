@@ -4,8 +4,7 @@ import com.umssonline.social.common.dto.CreateCommentDto;
 import com.umssonline.social.common.dto.UpdateCommentDto;
 import com.umssonline.social.models.Comment;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,8 @@ import java.util.Collection;
 public class CommentsRestControllerImpl implements CommentsRestController {
 
     //region Properties
-    private static final ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
     //endregion
 
     //region CommentsRestController Members
@@ -36,8 +36,6 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
     @Override
     public ResponseEntity<Comment> create(@RequestBody final CreateCommentDto commentDto) {
-        modelMapper.getConfiguration().setFieldMatchingEnabled(true);
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         Comment converted = modelMapper.map(commentDto, Comment.class);
         return null;
     }
