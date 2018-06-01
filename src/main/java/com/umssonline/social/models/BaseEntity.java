@@ -14,6 +14,8 @@ public abstract class BaseEntity {
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @Column(nullable = false)
+    private Boolean isDeleted;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_CreatedBy")

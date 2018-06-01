@@ -1,19 +1,14 @@
 package com.umssonline.social.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class ShareAction {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @Column(nullable = false)
-    private LocalDateTime sharedAt;
+public class ShareAction extends BaseEntity {
 
     @ManyToOne(optional = false)
     private Participant sharedWith;

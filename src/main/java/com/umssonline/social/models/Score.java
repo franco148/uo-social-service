@@ -1,17 +1,16 @@
 package com.umssonline.social.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Score {
+public class Score extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
     @Column(nullable = false)
     private Float rateAverage;
     @Column(nullable = false)
