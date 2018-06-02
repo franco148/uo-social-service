@@ -7,10 +7,4 @@ import java.util.Collection;
 
 public interface ExtendedScoreDao extends SocialServiceDao<Score> {
 
-    Score findById(Serializable id);
-    Collection<Score> findAll();
-    Score create(Score score);
-    Score update(Score score);
-    void delete(Score score);
-    void deleteById(Serializable id);
 }
