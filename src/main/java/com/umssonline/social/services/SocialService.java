@@ -6,13 +6,13 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service
-public interface SocialService<T> {
+public interface SocialService<TEntity> {
 
-    T findById(Serializable id);
-    Collection<T> findByProperty(String propertyName);
-    Collection<T> findAll();
-    T save(T entity);
-    T update(T entity);
-    void delete(T entity);
+    TEntity findById(Serializable id);
+    Collection<TEntity> findByProperty(String propertyName);
+    Collection<TEntity> findAll();
+    TEntity save(TEntity entity);
+    TEntity update(TEntity entity);
+    void delete(TEntity entity);
     void deleteById(Serializable id);
 }
