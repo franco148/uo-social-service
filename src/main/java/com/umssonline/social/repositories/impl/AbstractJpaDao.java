@@ -18,7 +18,7 @@ public abstract class AbstractJpaDao<TEntity> implements SocialServiceDao<TEntit
 
     //region Getters & Setters
 
-    public final void setClazz(final Class<TEntity> clazz) {
+    protected final void setClazz(final Class<TEntity> clazz) {
         this.clazz = clazz;
     }
 
