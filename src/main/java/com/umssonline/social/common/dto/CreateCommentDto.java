@@ -14,6 +14,10 @@ public class CreateCommentDto {
     private Long createdById;
 
     @JsonIgnore
+    private Integer messagesAmount = 0;
+    @JsonIgnore
+    private Boolean isDeleted = false;
+    @JsonIgnore
     private LocalDateTime createdAt = LocalDateTime.now();
     @JsonIgnore
     private LocalDateTime updatedAt = LocalDateTime.now();

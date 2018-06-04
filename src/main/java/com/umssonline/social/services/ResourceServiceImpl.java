@@ -3,6 +3,7 @@ package com.umssonline.social.services;
 import com.umssonline.social.models.Resource;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -16,12 +17,13 @@ public class ResourceServiceImpl implements SocialService<Resource> {
     //endregion
 
     //region Properties
+    @Transactional(readOnly = true)
     @Override
-    public Resource findById(Serializable id) {
+    public Resource findById(Serializable id) throws Exception {
         Resource resourceFromDb = resourceDao.findById(id);
 
         if (resourceFromDb == null) {
-            return null;
+            throw new Exception("Resource with the specified ID does not exist.");
         }
         return resourceFromDb;
     }
@@ -33,27 +35,27 @@ public class ResourceServiceImpl implements SocialService<Resource> {
 
     @Override
     public Collection<Resource> findAll() {
-        return null;
+        return resourceDao.findAll();
     }
 
     @Override
     public Resource save(Resource resource) {
-        return null;
+        return resourceDao.create(resource);
     }
 
     @Override
     public Resource update(Resource resource) {
-        return null;
+        return resourceDao.update(resource);
     }
 
     @Override
     public void delete(Resource resource) {
-
+        resourceDao.delete(resource);
     }
 
     @Override
     public void deleteById(Serializable id) {
-
+        resourceDao.deleteById(id);
     }
     //endregion
 }

@@ -3,6 +3,7 @@ package com.umssonline.social.services;
 import com.umssonline.social.models.Participant;
 import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class ParticipantServiceImpl implements SocialService<Participant> {
     //endregion
 
     //region SocialService Members
+    @Transactional(readOnly = true)
     @Override
     public Participant findById(Serializable id) {
         return participantDao.findById(id);
