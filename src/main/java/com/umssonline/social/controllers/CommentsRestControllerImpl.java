@@ -40,7 +40,7 @@ public class CommentsRestControllerImpl implements CommentsRestController {
     }
 
     @Override
-    public ResponseEntity<Comment> create(@RequestBody final CreateCommentDto commentDto) {
+    public ResponseEntity<Comment> create(@RequestBody final CreateCommentDto commentDto) throws Exception {
         Comment converted = modelMapper.map(commentDto, Comment.class);
         commentService.save(converted);
         return null;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Service
+@Service("resourceService")
 public class ResourceServiceImpl implements SocialService<Resource> {
 
     //region Properties

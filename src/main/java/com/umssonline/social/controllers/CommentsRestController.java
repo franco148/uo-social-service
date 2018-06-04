@@ -21,7 +21,7 @@ public interface CommentsRestController {
     Collection<Comment> findByProperty(@RequestParam("prop") String property);
 
     @PostMapping
-    ResponseEntity<Comment> create(final CreateCommentDto commentDto);
+    ResponseEntity<Comment> create(final CreateCommentDto commentDto) throws Exception;
 
     @PutMapping
     ResponseEntity<Comment> update(final UpdateCommentDto commentDto);

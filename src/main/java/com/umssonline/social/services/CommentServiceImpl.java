@@ -1,8 +1,8 @@
 package com.umssonline.social.services;
 
 import com.umssonline.social.models.Comment;
+import com.umssonline.social.models.Participant;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
-import com.umssonline.social.repositories.api.ExtendedResourceDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +10,8 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Service
-@Qualifier("commentService")
+@Service("commentService")
+//@Qualifier("commentService")
 public class CommentServiceImpl implements SocialService<Comment> {
 
     //region Properties
@@ -19,7 +19,10 @@ public class CommentServiceImpl implements SocialService<Comment> {
     private ExtendedCommentDao commentDao;
 
     @Resource
-    private ExtendedResourceDao resourceDao;
+    private SocialService<com.umssonline.social.models.Resource> resourceService;
+
+    @Resource
+    private SocialService<Participant> participantService;
     //endregion
 
     //region SocialService Members
@@ -39,8 +42,14 @@ public class CommentServiceImpl implements SocialService<Comment> {
     }
 
     @Override
-    public Comment save(Comment entity) {
-        com.umssonline.social.models.Resource fromDb = resourceDao.findById(entity.getCommentedResource().getId());
+    public Comment save(Comment entity) throws Exception {
+        com.umssonline.social.models.Resource resourceFromDb = resourceService.findById(entity.getCommentedResource().getId());
+        if (resourceFromDb == null) {
+            throw new Exception("Comment can not be created, it does not have a related Resource");
+        }
+
+        //if ()
+
         return null;
     }
 

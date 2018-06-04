@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Service
+@Service("participantService")
 public class ParticipantServiceImpl implements SocialService<Participant> {
 
     //region Properties
