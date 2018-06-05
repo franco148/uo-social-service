@@ -6,6 +6,7 @@ import com.umssonline.social.repositories.api.ExtendedCommentDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
@@ -27,19 +28,22 @@ public class CommentServiceImpl implements SocialService<Comment> {
     //endregion
 
     //region SocialService Members
+    @Transactional(readOnly = true)
     @Override
     public Comment findById(Serializable id) {
-        return null;
+        return commentDao.findById(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Collection<Comment> findByProperty(String propertyName) {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Collection<Comment> findAll() {
-        return null;
+        return commentDao.findAll();
     }
 
     @Transactional
@@ -66,19 +70,22 @@ public class CommentServiceImpl implements SocialService<Comment> {
         return commentDao.create(entity);
     }
 
+    @Transactional
     @Override
     public Comment update(Comment entity) {
-        return null;
+        throw new NotImplementedException();
     }
 
+    @Transactional
     @Override
     public void delete(Comment entity) {
-
+        commentDao.deleteById(entity.getId());
     }
 
+    @Transactional
     @Override
     public void deleteById(Serializable id) {
-
+        commentDao.deleteById(id);
     }
     //endregion
 

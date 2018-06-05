@@ -12,10 +12,10 @@ import java.util.Collection;
 public interface CommentsRestController {
 
     @GetMapping("/{comment_id}")
-    ResponseEntity<Comment> findById(@PathVariable("comment_id") Long id);
+    ResponseEntity<Comment> findById(@PathVariable("comment_id") Long id) throws Exception;
 
     @GetMapping
-    ResponseEntity<Collection<Comment>> findAll();
+    ResponseEntity<Collection<Comment>> findAll() throws Exception;
 
     @GetMapping("/property")
     Collection<Comment> findByProperty(@RequestParam("prop") String property);
