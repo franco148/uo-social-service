@@ -66,7 +66,7 @@ public class CommentsRestControllerImpl implements CommentsRestController {
             return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            throw new Exception("Save comment has failed. The operation has been terminated.");
+            throw new Exception("Save comment has failed. The operation has been terminated: " + ex.getMessage());
         }
     }
 
