@@ -3,12 +3,15 @@ package com.umssonline.social.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(exclude = {"sharedResource", "shareActions"}, callSuper = false)
+@ToString(exclude = {"sharedResource", "shareActions"})
+
 @Entity
 public class Share extends BaseEntity {
 

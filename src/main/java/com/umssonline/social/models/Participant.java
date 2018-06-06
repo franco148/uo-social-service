@@ -13,6 +13,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(exclude = {"shared", "sharedWithMe", "messages"})
 @ToString(exclude = {"shared", "sharedWithMe", "messages"})
+
 @Entity
 public class Participant {
 

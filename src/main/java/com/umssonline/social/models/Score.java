@@ -3,12 +3,15 @@ package com.umssonline.social.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(exclude = {"rates", "ratedResource"}, callSuper = false)
+@ToString(exclude = {"rates", "ratedResource"})
+
 @Entity
 public class Score extends BaseEntity {
 

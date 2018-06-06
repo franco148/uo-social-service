@@ -2,7 +2,6 @@ package com.umssonline.social.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +9,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//@Data
 @Getter
 @Setter
+
 @MappedSuperclass
 public abstract class BaseEntity {
 

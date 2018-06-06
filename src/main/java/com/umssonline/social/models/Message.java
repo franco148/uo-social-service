@@ -3,11 +3,14 @@ package com.umssonline.social.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(exclude = "comment", callSuper = false)
+@ToString(exclude = "comment")
+
 @Entity
 public class Message extends BaseEntity {
 
@@ -15,6 +18,6 @@ public class Message extends BaseEntity {
     private String text;
 
     @JsonBackReference
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Comment comment;
 }
