@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("/comments")
 public class CommentsRestControllerImpl implements CommentsRestController {
 
     //region Properties
@@ -27,7 +28,8 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
     //region CommentsRestController Members
     @Override
-    public ResponseEntity<Comment> findById(Long id) throws Exception {
+    @GetMapping("/{comment_id}")
+    public ResponseEntity<Comment> findById(@PathVariable("comment_id") final Long id) throws Exception {
 
         try {
             Comment commentResponse = commentService.findById(id);
@@ -38,6 +40,7 @@ public class CommentsRestControllerImpl implements CommentsRestController {
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<Collection<Comment>> findAll() throws Exception {
 
         try {
@@ -54,11 +57,13 @@ public class CommentsRestControllerImpl implements CommentsRestController {
     }
 
     @Override
-    public Collection<Comment> findByProperty(String property) {
+    @GetMapping("/property")
+    public Collection<Comment> findByProperty(@RequestParam("prop") final String property) {
         return null;
     }
 
     @Override
+    @PostMapping
     public ResponseEntity<Comment> create(@RequestBody final CreateCommentDto commentDto) throws Exception {
         Comment converted = modelMapper.map(commentDto, Comment.class);
         try {
@@ -71,13 +76,14 @@ public class CommentsRestControllerImpl implements CommentsRestController {
     }
 
     @Override
-    //@PutMapping
+    @PutMapping
     public ResponseEntity<Comment> update(@RequestBody final UpdateCommentDto commentDto) {
         throw new NotImplementedException();
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
+    @DeleteMapping("/{comment_id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("comment_id") final Long id) {
         commentService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
