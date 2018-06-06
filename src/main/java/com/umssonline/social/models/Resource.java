@@ -1,13 +1,18 @@
 package com.umssonline.social.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@EqualsAndHashCode(exclude = "comment")
+@ToString(exclude = "comment")
 @Data
+//@Getter
+//@Setter
 @Entity
 public class Resource {
 
@@ -23,7 +28,8 @@ public class Resource {
     @JsonBackReference
     @OneToOne(mappedBy = "sharedResource")
     private Share share;
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     @OneToOne(mappedBy = "commentedResource", fetch = FetchType.LAZY)
     private Comment comment;
 }
