@@ -1,26 +1,23 @@
 package com.umssonline.social.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Data
-@Entity
-public class Message {
+@EqualsAndHashCode(exclude = "comment", callSuper = false)
+@ToString(exclude = "comment")
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+@Entity
+public class Message extends BaseEntity {
+
     @Column(nullable = false)
     private String text;
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
 
-    @ManyToOne(optional = false)
-    private Participant createdBy;
-    @ManyToOne(optional = false)
+    @JsonBackReference
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Comment comment;
 }

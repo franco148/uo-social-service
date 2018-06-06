@@ -10,9 +10,13 @@ import java.time.LocalDateTime;
 @Setter
 public class CreateCommentDto {
 
-    private Long resourceId;
+    private Long commentedResourceId;
     private Long createdById;
 
+    @JsonIgnore
+    private Integer messagesAmount = 0;
+    @JsonIgnore
+    private Boolean isDeleted = false;
     @JsonIgnore
     private LocalDateTime createdAt = LocalDateTime.now();
     @JsonIgnore

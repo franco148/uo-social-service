@@ -1,10 +1,16 @@
 package com.umssonline.social.models;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
+@EqualsAndHashCode(exclude = {"score", "share", "comment"})
+@ToString(exclude = {"score", "share", "comment"})
+
 @Entity
 public class Resource {
 
@@ -14,10 +20,13 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     private ResourceType type;
 
-    @OneToOne(mappedBy = "ratedResource")
+    @JsonBackReference
+    @OneToOne(mappedBy = "ratedResource", fetch = FetchType.LAZY)
     private Score score;
-    @OneToOne(mappedBy = "sharedResource")
+    @JsonBackReference
+    @OneToOne(mappedBy = "sharedResource", fetch = FetchType.LAZY)
     private Share share;
-    @OneToOne(mappedBy = "commentedResource")
+    @JsonBackReference
+    @OneToOne(mappedBy = "commentedResource", fetch = FetchType.LAZY)
     private Comment comment;
 }

@@ -1,25 +1,28 @@
 package com.umssonline.social.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Data
+@EqualsAndHashCode(exclude = {"sharedWith", "sharedBy", "share"}, callSuper = false)
+@ToString(exclude = {"sharedWith", "sharedBy", "share"})
+
 @Entity
-public class ShareAction {
+public class ShareAction extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @Column(nullable = false)
-    private LocalDateTime sharedAt;
-
+    @JsonManagedReference
     @ManyToOne(optional = false)
     private Participant sharedWith;
+    @JsonManagedReference
     @ManyToOne(optional = false)
     private Participant sharedBy;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     private Share share;
 }

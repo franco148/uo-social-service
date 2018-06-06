@@ -1,18 +1,26 @@
 package com.umssonline.social.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 @Service
-public interface SocialService<T> {
+public interface SocialService<TEntity> {
 
-    T findById(Serializable id);
-    Collection<T> findByProperty(String propertyName);
-    Collection<T> findAll();
-    T save(T entity);
-    T update(T entity);
-    void delete(T entity);
+    @Transactional(readOnly = true)
+    TEntity findById(Serializable id) throws Exception;
+    @Transactional(readOnly = true)
+    Collection<TEntity> findByProperty(String propertyName);
+    @Transactional(readOnly = true)
+    Collection<TEntity> findAll();
+    @Transactional
+    TEntity save(TEntity entity) throws Exception;
+    @Transactional
+    TEntity update(TEntity entity);
+    @Transactional
+    void delete(TEntity entity);
+    @Transactional
     void deleteById(Serializable id);
 }
