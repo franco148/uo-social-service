@@ -18,7 +18,7 @@ public interface SocialService<TEntity> {
     @Transactional
     TEntity save(TEntity entity) throws Exception;
     @Transactional
-    TEntity update(TEntity entity);
+    TEntity update(TEntity entity) throws Exception;
     @Transactional
     void delete(TEntity entity);
     @Transactional

@@ -3,9 +3,10 @@ package com.umssonline.social.services;
 import com.umssonline.social.models.Comment;
 import com.umssonline.social.models.Message;
 import com.umssonline.social.repositories.api.ExtendedMessageDao;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -13,11 +14,14 @@ import java.util.Collection;
 public class MessageServiceImpl implements SocialService<Message> {
 
     //region Properties
-    @Resource
+    @Autowired
     private ExtendedMessageDao messageDao;
 
-    @Resource
+    @Autowired
     private SocialService<Comment> commentService;
+
+    @Autowired
+    private ModelMapper modelMapper;
     //endregion
 
 
@@ -55,18 +59,26 @@ public class MessageServiceImpl implements SocialService<Message> {
     }
 
     @Override
-    public Message update(Message message) {
-        return null;
+    public Message update(Message message) throws Exception {
+
+        Message messageFromDb = messageDao.findById(message.getId());
+        if (messageFromDb == null) {
+            throw new Exception("");
+        }
+
+        modelMapper.map(message, messageFromDb);
+
+        return messageDao.update(messageFromDb);
     }
 
     @Override
     public void delete(Message message) {
-
+        messageDao.delete(message);
     }
 
     @Override
     public void deleteById(Serializable id) {
-
+        messageDao.deleteById(id);
     }
     //endregion
 }
