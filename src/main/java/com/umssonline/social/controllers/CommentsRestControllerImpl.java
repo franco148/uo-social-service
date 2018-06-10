@@ -52,7 +52,7 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
             return new ResponseEntity<>(commentsResponse, HttpStatus.OK);
         } catch (Exception ex) {
-            throw new Exception("Error on getting a comment: " + ex.getMessage());
+            throw new Exception("Error on getting comments: " + ex.getMessage());
         }
     }
 

@@ -4,7 +4,6 @@ import com.umssonline.social.common.dto.CreateCommentDto;
 import com.umssonline.social.common.dto.UpdateCommentDto;
 import com.umssonline.social.models.Comment;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
