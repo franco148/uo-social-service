@@ -7,15 +7,14 @@ import com.umssonline.social.services.SocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/rates")
 public class RatesRestControllerImpl implements RatesRestController {
-    
+
     //region Properties
     @Autowired
     private SocialService<Rate> rateService;
@@ -26,32 +25,39 @@ public class RatesRestControllerImpl implements RatesRestController {
 
     //region RatesRestController Members
     @Override
-    public ResponseEntity<Rate> findById(Long id) throws Exception {
+    @GetMapping("/{rate_id}")
+    public ResponseEntity<Rate> findById(@PathVariable("rate_id") final Long id) throws Exception {
         return null;
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<Collection<Rate>> findAll() throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<Collection<Rate>> findByProperty(String property, Object value) {
+    @GetMapping("/property")
+    public ResponseEntity<Collection<Rate>> findByProperty(@RequestParam("prop") final String property,
+                                                           @RequestParam("val") final Object value) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Rate> create(CreateRateDto messageDto) throws Exception {
+    @PostMapping
+    public ResponseEntity<Rate> create(@RequestBody final CreateRateDto messageDto) throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<Rate> update(UpdateRateDto messageDto) throws Exception {
+    @PutMapping
+    public ResponseEntity<Rate> update(@RequestBody final UpdateRateDto messageDto) throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
+    @DeleteMapping("/{rate_id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("rate_id") final Long id) {
         return null;
     }
     //endregion
