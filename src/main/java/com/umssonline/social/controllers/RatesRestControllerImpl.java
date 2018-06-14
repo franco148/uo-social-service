@@ -6,6 +6,7 @@ import com.umssonline.social.models.Rate;
 import com.umssonline.social.services.SocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,13 +28,30 @@ public class RatesRestControllerImpl implements RatesRestController {
     @Override
     @GetMapping("/{rate_id}")
     public ResponseEntity<Rate> findById(@PathVariable("rate_id") final Long id) throws Exception {
-        return null;
+
+        try {
+            Rate rateResponse = rateService.findById(id);
+            return new ResponseEntity<>(rateResponse, HttpStatus.OK);
+        } catch (Exception ex) {
+            throw new Exception("Error on getting a rate: " + ex.getMessage());
+        }
     }
 
     @Override
     @GetMapping
     public ResponseEntity<Collection<Rate>> findAll() throws Exception {
-        return null;
+
+        try {
+            Collection<Rate> ratesResponse = rateService.findAll();
+
+            if (ratesResponse.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(ratesResponse, HttpStatus.OK);
+        } catch (Exception ex) {
+            throw new Exception("Error on getting rates: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -45,20 +63,29 @@ public class RatesRestControllerImpl implements RatesRestController {
 
     @Override
     @PostMapping
-    public ResponseEntity<Rate> create(@RequestBody final CreateRateDto messageDto) throws Exception {
-        return null;
+    public ResponseEntity<Rate> create(@RequestBody final CreateRateDto rateDto) throws Exception {
+
+        Rate converted = modelMapper.map(rateDto, Rate.class);
+        try {
+            Rate savedRate = rateService.save(converted);
+            return new ResponseEntity<>(savedRate, HttpStatus.CREATED);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            throw new Exception("Save rate has failed. The operation has been terminated: " + ex.getMessage());
+        }
     }
 
     @Override
     @PutMapping
-    public ResponseEntity<Rate> update(@RequestBody final UpdateRateDto messageDto) throws Exception {
+    public ResponseEntity<Rate> update(@RequestBody final UpdateRateDto rateDto) throws Exception {
         return null;
     }
 
     @Override
     @DeleteMapping("/{rate_id}")
     public ResponseEntity<Void> deleteById(@PathVariable("rate_id") final Long id) {
-        return null;
+        rateService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     //endregion
 
