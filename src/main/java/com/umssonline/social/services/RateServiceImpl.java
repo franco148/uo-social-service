@@ -1,4 +1,89 @@
 package com.umssonline.social.services;
 
-public class RateServiceImpl {
+import com.umssonline.social.models.Participant;
+import com.umssonline.social.models.Rate;
+import com.umssonline.social.models.Score;
+import com.umssonline.social.repositories.api.ExtendedRateDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
+import java.util.Collection;
+
+@Service("rateService")
+public class RateServiceImpl implements SocialService<Rate> {
+
+    //region Properties
+    @Autowired
+    private ExtendedRateDao rateDao;
+
+    @Autowired
+    private SocialService<Score> scoreService;
+
+    @Autowired
+    private SocialService<Participant> participantService;
+    //endregion
+
+    //region SocialService Members
+    @Transactional(readOnly = true)
+    @Override
+    public Rate findById(Serializable id) throws Exception {
+        return rateDao.findById(id);
+    }
+
+    @Override
+    public Collection<Rate> findByProperty(String propertyName) {
+        return null;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<Rate> findAll() {
+        return rateDao.findAll();
+    }
+
+    @Transactional
+    @Override
+    public Rate save(Rate rate) throws Exception {
+
+        if (rate.getScore() == null || rate.getCreatedBy() == null) {
+            throw new Exception("Neither Resource nor CreatedBy properties can be null.");
+        }
+
+        Score scoreFromDb = scoreService.findById(rate.getScore().getId());
+        if (scoreFromDb == null) {
+            throw new Exception("Score can not be created, it does not have a related Score.");
+        }
+
+        Participant participantFromDb = participantService.findById(rate.getCreatedBy().getId());
+        if (participantFromDb == null) {
+            throw new Exception("The owner who is rating the resource does not exists.");
+        }
+
+        rate.setScore(scoreFromDb);
+        rate.setCreatedBy(participantFromDb);
+
+        return rateDao.create(rate);
+    }
+
+    @Transactional
+    @Override
+    public Rate update(Rate rate) throws Exception {
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public void delete(Rate rate) {
+        rateDao.deleteById(rate.getId());
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Serializable id) {
+        rateDao.deleteById(id);
+    }
+    //endregion
+
 }
