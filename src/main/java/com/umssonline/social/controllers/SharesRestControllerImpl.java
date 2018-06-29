@@ -5,8 +5,7 @@ import com.umssonline.social.services.SocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -24,32 +23,39 @@ public class SharesRestControllerImpl implements SharesRestController {
 
     //region SharesRestController Members
     @Override
-    public ResponseEntity<Share> findById(Long id) throws Exception {
+    @GetMapping("/{share_id}")
+    public ResponseEntity<Share> findById(@PathVariable("share_id") final Long id) throws Exception {
         return null;
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<Collection<Share>> findAll() throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<Collection<Share>> findByProperty(String property, Object value) {
+    @GetMapping("/property")
+    public ResponseEntity<Collection<Share>> findByProperty(@RequestParam("prop") final String property,
+                                                            @RequestParam("val") final Object value) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Share> create(Object messageDto) throws Exception {
+    @PostMapping
+    public ResponseEntity<Share> create(@RequestBody final Object messageDto) throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<Share> update(Object messageDto) throws Exception {
+    @PutMapping
+    public ResponseEntity<Share> update(@RequestBody final Object messageDto) throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
+    @DeleteMapping("/{share_id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("share_id") final Long id) {
         return null;
     }
     //endregion
