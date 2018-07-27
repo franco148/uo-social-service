@@ -1,4 +1,4 @@
-package com.umssonline.social.common.dto;
+package com.umssonline.social.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -8,11 +8,13 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CreateMessageDto {
+public class CreateCommentDto {
 
-    private String text;
+    private Long commentedResourceId;
     private Long createdById;
 
+    @JsonIgnore
+    private Integer messagesAmount = 0;
     @JsonIgnore
     private Boolean isDeleted = false;
     @JsonIgnore

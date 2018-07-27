@@ -1,4 +1,4 @@
-package com.umssonline.social.common.dto;
+package com.umssonline.social.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
-public class UpdateMessageDto {
+public class UpdateCommentDto {
 
     @Id
     @NotNull
     private Long id;
-    private String text;
     private Long updatedById;
 
     @JsonIgnore

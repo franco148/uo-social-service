@@ -1,7 +1,7 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.common.dto.CreateRateDto;
-import com.umssonline.social.common.dto.UpdateRateDto;
+import com.umssonline.social.models.dto.CreateRateDto;
+import com.umssonline.social.models.dto.UpdateRateDto;
 import com.umssonline.social.models.Rate;
 import org.springframework.http.ResponseEntity;
 
