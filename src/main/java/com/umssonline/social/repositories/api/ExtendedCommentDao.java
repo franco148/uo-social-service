@@ -1,9 +1,6 @@
 package com.umssonline.social.repositories.api;
 
-import com.umssonline.social.models.Comment;
-
-import java.io.Serializable;
-import java.util.Collection;
+import com.umssonline.social.models.entity.Comment;
 
 public interface ExtendedCommentDao extends SocialServiceDao<Comment> {
 

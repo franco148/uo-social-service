@@ -2,7 +2,7 @@ package com.umssonline.social.controllers;
 
 import com.umssonline.social.models.dto.CreateRateDto;
 import com.umssonline.social.models.dto.UpdateRateDto;
-import com.umssonline.social.models.Rate;
+import com.umssonline.social.models.entity.Rate;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;

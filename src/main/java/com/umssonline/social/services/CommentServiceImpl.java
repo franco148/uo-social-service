@@ -1,9 +1,8 @@
 package com.umssonline.social.services;
 
-import com.umssonline.social.models.Comment;
-import com.umssonline.social.models.Participant;
+import com.umssonline.social.models.entity.Comment;
+import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -21,7 +20,7 @@ public class CommentServiceImpl implements SocialService<Comment> {
     private ExtendedCommentDao commentDao;
 
     @Resource
-    private SocialService<com.umssonline.social.models.Resource> resourceService;
+    private SocialService<com.umssonline.social.models.entity.Resource> resourceService;
 
     @Resource
     private SocialService<Participant> participantService;
@@ -54,7 +53,7 @@ public class CommentServiceImpl implements SocialService<Comment> {
             throw new Exception("Neither Resource nor CreatedBy properties can be null.");
         }
 
-        com.umssonline.social.models.Resource resourceFromDb = resourceService.findById(entity.getCommentedResource().getId());
+        com.umssonline.social.models.entity.Resource resourceFromDb = resourceService.findById(entity.getCommentedResource().getId());
         if (resourceFromDb == null) {
             throw new Exception("Comment can not be created, it does not have a related Resource");
         }

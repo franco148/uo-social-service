@@ -1,4 +1,4 @@
-package com.umssonline.social.models;
+package com.umssonline.social.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;

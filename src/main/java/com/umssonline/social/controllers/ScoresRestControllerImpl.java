@@ -1,6 +1,6 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.models.Score;
+import com.umssonline.social.models.entity.Score;
 import com.umssonline.social.services.SocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

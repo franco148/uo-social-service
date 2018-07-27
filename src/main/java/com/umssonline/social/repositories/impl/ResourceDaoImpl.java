@@ -1,6 +1,6 @@
 package com.umssonline.social.repositories.impl;
 
-import com.umssonline.social.models.Resource;
+import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
 import org.springframework.stereotype.Repository;
 

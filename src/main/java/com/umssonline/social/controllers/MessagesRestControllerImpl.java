@@ -2,7 +2,7 @@ package com.umssonline.social.controllers;
 
 import com.umssonline.social.models.dto.CreateMessageDto;
 import com.umssonline.social.models.dto.UpdateMessageDto;
-import com.umssonline.social.models.Message;
+import com.umssonline.social.models.entity.Message;
 import com.umssonline.social.services.SocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

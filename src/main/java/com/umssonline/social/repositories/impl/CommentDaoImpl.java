@@ -1,6 +1,6 @@
 package com.umssonline.social.repositories.impl;
 
-import com.umssonline.social.models.Comment;
+import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
 import org.springframework.stereotype.Repository;
 

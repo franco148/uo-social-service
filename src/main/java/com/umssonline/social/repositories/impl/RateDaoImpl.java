@@ -1,6 +1,6 @@
 package com.umssonline.social.repositories.impl;
 
-import com.umssonline.social.models.Rate;
+import com.umssonline.social.models.entity.Rate;
 import com.umssonline.social.repositories.api.ExtendedRateDao;
 import org.springframework.stereotype.Repository;
 

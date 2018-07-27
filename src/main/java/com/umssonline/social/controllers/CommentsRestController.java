@@ -2,7 +2,7 @@ package com.umssonline.social.controllers;
 
 import com.umssonline.social.models.dto.CreateCommentDto;
 import com.umssonline.social.models.dto.UpdateCommentDto;
-import com.umssonline.social.models.Comment;
+import com.umssonline.social.models.entity.Comment;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;

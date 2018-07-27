@@ -1,7 +1,7 @@
 package com.umssonline.social.services;
 
-import com.umssonline.social.models.Comment;
-import com.umssonline.social.models.Message;
+import com.umssonline.social.models.entity.Comment;
+import com.umssonline.social.models.entity.Message;
 import com.umssonline.social.repositories.api.ExtendedMessageDao;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

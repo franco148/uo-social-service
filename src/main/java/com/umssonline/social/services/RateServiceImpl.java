@@ -1,8 +1,8 @@
 package com.umssonline.social.services;
 
-import com.umssonline.social.models.Participant;
-import com.umssonline.social.models.Rate;
-import com.umssonline.social.models.Score;
+import com.umssonline.social.models.entity.Participant;
+import com.umssonline.social.models.entity.Rate;
+import com.umssonline.social.models.entity.Score;
 import com.umssonline.social.repositories.api.ExtendedRateDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

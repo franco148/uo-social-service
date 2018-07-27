@@ -1,6 +1,6 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.models.Score;
+import com.umssonline.social.models.entity.Score;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
