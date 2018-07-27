@@ -2,19 +2,19 @@ package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.repositories.api.ExtendedParticipantDao;
-import com.umssonline.social.services.CrudSocialService;
+import com.umssonline.social.services.ParticipantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 
 @Service("participantService")
-public class ParticipantServiceImpl implements CrudSocialService<Participant> {
+public class ParticipantServiceImpl implements ParticipantService {
 
     //region Properties
-    @Resource
+    @Autowired
     private ExtendedParticipantDao participantDao;
     //endregion
 
@@ -36,7 +36,7 @@ public class ParticipantServiceImpl implements CrudSocialService<Participant> {
     }
 
     @Override
-    public Participant save(Participant participant) throws Exception {
+    public Participant save(Participant participant) {
         return participantDao.create(participant);
     }
 

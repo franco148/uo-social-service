@@ -2,7 +2,8 @@ package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
-import com.umssonline.social.services.CrudSocialService;
+import com.umssonline.social.services.ResourceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,21 +11,21 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("resourceService")
-public class ResourceServiceImpl implements CrudSocialService<Resource> {
+public class ResourceServiceImpl implements ResourceService {
 
     //region Properties
-    @javax.annotation.Resource
+    @Autowired
     private ExtendedResourceDao resourceDao;
     //endregion
 
     //region Properties
     @Transactional(readOnly = true)
     @Override
-    public Resource findById(Serializable id) throws Exception {
+    public Resource findById(Serializable id) {
         Resource resourceFromDb = resourceDao.findById(id);
 
         if (resourceFromDb == null) {
-            throw new Exception("Resource with the specified ID does not exist.");
+            //throw new Exception("Resource with the specified ID does not exist.");
         }
         return resourceFromDb;
     }

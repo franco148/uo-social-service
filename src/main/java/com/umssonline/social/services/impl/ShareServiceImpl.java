@@ -4,7 +4,9 @@ import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.models.entity.Share;
 import com.umssonline.social.repositories.api.ExtendedShareDao;
-import com.umssonline.social.services.CrudSocialService;
+import com.umssonline.social.services.ParticipantService;
+import com.umssonline.social.services.ResourceService;
+import com.umssonline.social.services.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +14,22 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("shareService")
-public class ShareServiceImpl implements CrudSocialService<Share> {
+public class ShareServiceImpl implements ShareService {
 
     //region Properties
     @Autowired
     private ExtendedShareDao shareDao;
 
     @Autowired
-    private CrudSocialService<Resource> resourceService;
+    private ResourceService resourceService;
 
     @Autowired
-    private CrudSocialService<Participant> participantService;
+    private ParticipantService participantService;
     //endregion
 
     //region SocialService Members
     @Override
-    public Share findById(Serializable id) throws Exception {
+    public Share findById(Serializable id) {
         return shareDao.findById(id);
     }
 
@@ -42,20 +44,20 @@ public class ShareServiceImpl implements CrudSocialService<Share> {
     }
 
     @Override
-    public Share save(Share share) throws Exception {
+    public Share save(Share share) {
 
         if (share.getSharedResource() == null || share.getCreatedBy() == null) {
-            throw new Exception("Neither Resource nor CreatedBy properties can be null.");
+            //throw new Exception("Neither Resource nor CreatedBy properties can be null.");
         }
 
         Resource resourceFromDb = resourceService.findById(share.getSharedResource().getId());
         if (resourceFromDb == null) {
-            throw new Exception("Share can not be created, it does not have a related Resource");
+            //throw new Exception("Share can not be created, it does not have a related Resource");
         }
 
         Participant participantFromDb = participantService.findById(share.getCreatedBy().getId());
         if (participantFromDb == null) {
-            throw new Exception("The owner who is creating the share does not exists.");
+            //throw new Exception("The owner who is creating the share does not exists.");
         }
 
         share.setSharedResource(resourceFromDb);
@@ -65,7 +67,7 @@ public class ShareServiceImpl implements CrudSocialService<Share> {
     }
 
     @Override
-    public Share update(Share share) throws Exception {
+    public Share update(Share share) {
         return null;
     }
 

@@ -11,9 +11,9 @@ public interface CrudSocialService<TEntity> {
 
     Collection<TEntity> findAll();
 
-    TEntity save(TEntity entity) throws Exception;
+    TEntity save(TEntity entity);
 
-    TEntity update(TEntity entity) throws Exception;
+    TEntity update(TEntity entity);
 
     void delete(TEntity entity);
 

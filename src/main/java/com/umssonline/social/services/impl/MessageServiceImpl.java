@@ -3,7 +3,8 @@ package com.umssonline.social.services.impl;
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Message;
 import com.umssonline.social.repositories.api.ExtendedMessageDao;
-import com.umssonline.social.services.CrudSocialService;
+import com.umssonline.social.services.CommentService;
+import com.umssonline.social.services.MessageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +13,14 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("messageService")
-public class MessageServiceImpl implements CrudSocialService<Message> {
+public class MessageServiceImpl implements MessageService {
 
     //region Properties
     @Autowired
     private ExtendedMessageDao messageDao;
 
     @Autowired
-    private CrudSocialService<Comment> commentService;
+    private CommentService commentService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -28,7 +29,7 @@ public class MessageServiceImpl implements CrudSocialService<Message> {
 
     //region SocialService Members
     @Override
-    public Message findById(Serializable id) throws Exception {
+    public Message findById(Serializable id) {
         return messageDao.findById(id);
     }
 
@@ -43,15 +44,15 @@ public class MessageServiceImpl implements CrudSocialService<Message> {
     }
 
     @Override
-    public Message save(Message message) throws Exception {
+    public Message save(Message message) {
 
         if (message.getComment() == null || message.getCreatedBy() == null) {
-            throw new Exception("Neither Comment nor CreatedBy properties can be null.");
+            //throw new Exception("Neither Comment nor CreatedBy properties can be null.");
         }
 
         Comment commentFromDb = commentService.findById(message.getComment().getId());
         if (commentFromDb == null) {
-            throw new Exception("Message can not be created, it does not have a related Comment");
+            //throw new Exception("Message can not be created, it does not have a related Comment");
         }
 
         message.setComment(commentFromDb);
@@ -60,11 +61,11 @@ public class MessageServiceImpl implements CrudSocialService<Message> {
     }
 
     @Override
-    public Message update(Message message) throws Exception {
+    public Message update(Message message) {
 
         Message messageFromDb = messageDao.findById(message.getId());
         if (messageFromDb == null) {
-            throw new Exception("");
+            //throw new Exception("");
         }
 
         modelMapper.map(message, messageFromDb);

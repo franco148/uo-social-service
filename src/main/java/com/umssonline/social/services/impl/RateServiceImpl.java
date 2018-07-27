@@ -4,7 +4,9 @@ import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.models.entity.Rate;
 import com.umssonline.social.models.entity.Score;
 import com.umssonline.social.repositories.api.ExtendedRateDao;
-import com.umssonline.social.services.CrudSocialService;
+import com.umssonline.social.services.ParticipantService;
+import com.umssonline.social.services.RateService;
+import com.umssonline.social.services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,23 +15,23 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("rateService")
-public class RateServiceImpl implements CrudSocialService<Rate> {
+public class RateServiceImpl implements RateService {
 
     //region Properties
     @Autowired
     private ExtendedRateDao rateDao;
 
     @Autowired
-    private CrudSocialService<Score> scoreService;
+    private ScoreService scoreService;
 
     @Autowired
-    private CrudSocialService<Participant> participantService;
+    private ParticipantService participantService;
     //endregion
 
     //region SocialService Members
     @Transactional(readOnly = true)
     @Override
-    public Rate findById(Serializable id) throws Exception {
+    public Rate findById(Serializable id) {
         return rateDao.findById(id);
     }
 
@@ -46,20 +48,20 @@ public class RateServiceImpl implements CrudSocialService<Rate> {
 
     @Transactional
     @Override
-    public Rate save(Rate rate) throws Exception {
+    public Rate save(Rate rate) {
 
         if (rate.getScore() == null || rate.getCreatedBy() == null) {
-            throw new Exception("Neither Resource nor CreatedBy properties can be null.");
+            //throw new Exception("Neither Resource nor CreatedBy properties can be null.");
         }
 
         Score scoreFromDb = scoreService.findById(rate.getScore().getId());
         if (scoreFromDb == null) {
-            throw new Exception("Score can not be created, it does not have a related Score.");
+            //throw new Exception("Score can not be created, it does not have a related Score.");
         }
 
         Participant participantFromDb = participantService.findById(rate.getCreatedBy().getId());
         if (participantFromDb == null) {
-            throw new Exception("The owner who is rating the resource does not exists.");
+            //throw new Exception("The owner who is rating the resource does not exists.");
         }
 
         rate.setScore(scoreFromDb);
@@ -70,7 +72,7 @@ public class RateServiceImpl implements CrudSocialService<Rate> {
 
     @Transactional
     @Override
-    public Rate update(Rate rate) throws Exception {
+    public Rate update(Rate rate) {
         return null;
     }
 

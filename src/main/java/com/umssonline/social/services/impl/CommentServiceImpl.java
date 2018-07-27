@@ -3,28 +3,30 @@ package com.umssonline.social.services.impl;
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
-import com.umssonline.social.services.CrudSocialService;
+import com.umssonline.social.services.CommentService;
+import com.umssonline.social.services.ParticipantService;
+import com.umssonline.social.services.ResourceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 
 @Service("commentService")
 //@Qualifier("commentService")
-public class CommentServiceImpl implements CrudSocialService<Comment> {
+public class CommentServiceImpl implements CommentService {
 
     //region Properties
-    @Resource
+    @Autowired
     private ExtendedCommentDao commentDao;
 
-    @Resource
-    private CrudSocialService<com.umssonline.social.models.entity.Resource> resourceService;
+    @Autowired
+    private ResourceService resourceService;
 
-    @Resource
-    private CrudSocialService<Participant> participantService;
+    @Autowired
+    private ParticipantService participantService;
     //endregion
 
     //region SocialService Members
@@ -48,20 +50,20 @@ public class CommentServiceImpl implements CrudSocialService<Comment> {
 
     @Transactional
     @Override
-    public Comment save(Comment entity) throws Exception {
+    public Comment save(Comment entity) {
 
         if (entity.getCommentedResource() == null || entity.getCreatedBy() == null) {
-            throw new Exception("Neither Resource nor CreatedBy properties can be null.");
+            //throw new Exception("Neither Resource nor CreatedBy properties can be null.");
         }
 
         com.umssonline.social.models.entity.Resource resourceFromDb = resourceService.findById(entity.getCommentedResource().getId());
         if (resourceFromDb == null) {
-            throw new Exception("Comment can not be created, it does not have a related Resource");
+            //throw new Exception("Comment can not be created, it does not have a related Resource");
         }
 
         Participant participantFromDb = participantService.findById(entity.getCreatedBy().getId());
         if (participantFromDb == null) {
-            throw new Exception("The owner who is creating the comment does not exists.");
+            //throw new Exception("The owner who is creating the comment does not exists.");
         }
 
         entity.setCommentedResource(resourceFromDb);
