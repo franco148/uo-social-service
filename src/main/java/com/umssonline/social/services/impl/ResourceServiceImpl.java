@@ -1,7 +1,8 @@
-package com.umssonline.social.services;
+package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
+import com.umssonline.social.services.CrudSocialService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

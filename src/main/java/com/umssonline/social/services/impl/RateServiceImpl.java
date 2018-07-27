@@ -1,9 +1,10 @@
-package com.umssonline.social.services;
+package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.models.entity.Rate;
 import com.umssonline.social.models.entity.Score;
 import com.umssonline.social.repositories.api.ExtendedRateDao;
+import com.umssonline.social.services.CrudSocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

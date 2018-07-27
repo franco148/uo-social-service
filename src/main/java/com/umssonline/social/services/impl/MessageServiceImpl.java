@@ -1,8 +1,9 @@
-package com.umssonline.social.services;
+package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Message;
 import com.umssonline.social.repositories.api.ExtendedMessageDao;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
