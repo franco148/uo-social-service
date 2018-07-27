@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("shareService")
-public class ShareServiceImplCrud implements CrudSocialService<Share> {
+public class ShareServiceImpl implements CrudSocialService<Share> {
 
     //region Properties
     @Autowired
