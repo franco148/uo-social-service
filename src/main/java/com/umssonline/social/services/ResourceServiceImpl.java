@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("resourceService")
-public class ResourceServiceImpl implements SocialService<Resource> {
+public class ResourceServiceImpl implements CrudSocialService<Resource> {
 
     //region Properties
     @javax.annotation.Resource

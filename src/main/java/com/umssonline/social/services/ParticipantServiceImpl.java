@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("participantService")
-public class ParticipantServiceImpl implements SocialService<Participant> {
+public class ParticipantServiceImpl implements CrudSocialService<Participant> {
 
     //region Properties
     @Resource

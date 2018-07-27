@@ -11,17 +11,17 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("scoreService")
-public class ScoreServiceImpl implements SocialService<Score> {
+public class ScoreServiceImpl implements CrudSocialService<Score> {
 
     //region Properties
     @Autowired
     private ExtendedScoreDao scoreDao;
 
     @Autowired
-    private SocialService<Resource> resourceService;
+    private CrudSocialService<Resource> resourceService;
 
     @Autowired
-    private SocialService<Participant> participantService;
+    private CrudSocialService<Participant> participantService;
     //endregion
 
     //region SocialService Members

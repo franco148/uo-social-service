@@ -3,7 +3,7 @@ package com.umssonline.social.controllers;
 import com.umssonline.social.models.dto.CreateMessageDto;
 import com.umssonline.social.models.dto.UpdateMessageDto;
 import com.umssonline.social.models.entity.Message;
-import com.umssonline.social.services.SocialService;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class MessagesRestControllerImpl implements MessagesRestController {
 
     //region Properties
     @Autowired
-    private SocialService<Message> messageService;
+    private CrudSocialService<Message> messageService;
 
     @Autowired
     private ModelMapper modelMapper;

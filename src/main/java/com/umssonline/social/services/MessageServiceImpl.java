@@ -11,14 +11,14 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service("messageService")
-public class MessageServiceImpl implements SocialService<Message> {
+public class MessageServiceImpl implements CrudSocialService<Message> {
 
     //region Properties
     @Autowired
     private ExtendedMessageDao messageDao;
 
     @Autowired
-    private SocialService<Comment> commentService;
+    private CrudSocialService<Comment> commentService;
 
     @Autowired
     private ModelMapper modelMapper;

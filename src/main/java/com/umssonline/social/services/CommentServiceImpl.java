@@ -13,17 +13,17 @@ import java.util.Collection;
 
 @Service("commentService")
 //@Qualifier("commentService")
-public class CommentServiceImpl implements SocialService<Comment> {
+public class CommentServiceImpl implements CrudSocialService<Comment> {
 
     //region Properties
     @Resource
     private ExtendedCommentDao commentDao;
 
     @Resource
-    private SocialService<com.umssonline.social.models.entity.Resource> resourceService;
+    private CrudSocialService<com.umssonline.social.models.entity.Resource> resourceService;
 
     @Resource
-    private SocialService<Participant> participantService;
+    private CrudSocialService<Participant> participantService;
     //endregion
 
     //region SocialService Members

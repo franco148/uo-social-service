@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Service
-public interface SocialService<TEntity> {
+public interface CrudSocialService<TEntity> {
 
     @Transactional(readOnly = true)
     TEntity findById(Serializable id) throws Exception;

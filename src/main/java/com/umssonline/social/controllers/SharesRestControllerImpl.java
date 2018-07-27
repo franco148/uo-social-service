@@ -1,7 +1,7 @@
 package com.umssonline.social.controllers;
 
 import com.umssonline.social.models.entity.Share;
-import com.umssonline.social.services.SocialService;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class SharesRestControllerImpl implements SharesRestController {
 
     //region Properties
     @Autowired
-    private SocialService<Share> shareService;
+    private CrudSocialService<Share> shareService;
 
     @Autowired
     private ModelMapper modelMapper;

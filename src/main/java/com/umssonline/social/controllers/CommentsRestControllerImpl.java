@@ -3,7 +3,7 @@ package com.umssonline.social.controllers;
 import com.umssonline.social.models.dto.CreateCommentDto;
 import com.umssonline.social.models.dto.UpdateCommentDto;
 import com.umssonline.social.models.entity.Comment;
-import com.umssonline.social.services.SocialService;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
     //region Properties
     @Resource
-    private SocialService<Comment> commentService;
+    private CrudSocialService<Comment> commentService;
 
     @Autowired
     private ModelMapper modelMapper;
