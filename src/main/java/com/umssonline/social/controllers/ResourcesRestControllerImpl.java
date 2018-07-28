@@ -3,8 +3,13 @@ package com.umssonline.social.controllers;
 import com.umssonline.social.models.dto.comment.CreateCommentDto;
 import com.umssonline.social.models.dto.comment.CreateMessageDto;
 import com.umssonline.social.models.dto.comment.UpdateMessageDto;
+import com.umssonline.social.models.dto.rate.CreateRateDto;
+import com.umssonline.social.models.dto.rate.CreateScoreDto;
+import com.umssonline.social.models.dto.rate.UpdateRateDto;
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Message;
+import com.umssonline.social.models.entity.Rate;
+import com.umssonline.social.models.entity.Score;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +28,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
 
     @GetMapping("/{resource_id}")
     @Override
-    public ResponseEntity<Iterable<Comment>> findAllCommentMessagesByResource(@PathVariable("resource_id") final Long resourceId) {
+    public ResponseEntity<Comment> findAllCommentMessagesByResource(@PathVariable("resource_id") final Long resourceId) {
         return null;
     }
 
@@ -61,7 +66,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
 
     @DeleteMapping("/{resource_id}/comment/{comment_id}")
     @Override
-    public ResponseEntity<Void> deleteCommentMessagesOfResource(@PathVariable("resource_id") final Long resourceId,
+    public ResponseEntity<Void> deleteAllCommentMessagesOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                 @PathVariable("comment_id") final Long commentId) {
         return null;
     }
@@ -78,6 +83,50 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Comment> findCommentByIdAndResource(@PathVariable("resource_id") final Long resourceId,
                                                               @PathVariable("comment_id") Long commentId) {
+        return null;
+    }
+
+    //endregion
+
+    //region Rates Operation
+
+    @Override
+    public ResponseEntity<Score> findAllScoreRatesByResource(Long resourceId) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Score> findScoreByIdAndResource(Long resourceId, Long scoreId) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Score> createScoreInResource(Long resourceId, CreateScoreDto score) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Rate> findScoreRateByResource(Long resourceId, Long rateId) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Rate> rateToResource(Long resourceId, CreateRateDto rate) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Rate> updateRateOfResource(Long resourceId, UpdateRateDto rate) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteRateOfResource(Long resourceId, Long scoreId, Long rateId) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteAllRatesOfResource(Long resourceId, Long scoreId) {
         return null;
     }
     //endregion
