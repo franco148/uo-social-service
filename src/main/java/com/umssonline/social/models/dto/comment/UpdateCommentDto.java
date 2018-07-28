@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 public class UpdateCommentDto {
 
-    @Id
+    //@Id
     @NotNull
     private Long id;
     private Long updatedById;

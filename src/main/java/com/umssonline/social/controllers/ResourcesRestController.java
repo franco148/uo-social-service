@@ -1,5 +1,8 @@
 package com.umssonline.social.controllers;
 
+import com.umssonline.social.models.dto.comment.CreateCommentDto;
+import com.umssonline.social.models.dto.comment.CreateMessageDto;
+import com.umssonline.social.models.dto.comment.UpdateMessageDto;
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Message;
 import org.springframework.http.ResponseEntity;
@@ -8,28 +11,36 @@ public interface ResourcesRestController {
 
     //region Comments Operation
 
-    /**
-     * This is going to return the comments entity with its related messages.
-     * @param resourceId The id of the resource.
-     * @return Comment Entity with its related messages
-     */
-    ResponseEntity<Iterable<Comment>> findAllCommentsByResource(final Long resourceId);
+    // Find a comment with all its related messages
+    ResponseEntity<Iterable<Comment>> findAllCommentMessagesByResource(final Long resourceId);
 
+    // Create a Comment in a Resource
+    ResponseEntity<Comment> createCommentInResource(final Long resourceId, final CreateCommentDto comment);
+
+    // Find an specific Comment Message in a Resource
     ResponseEntity<Message> findCommentMessageByResource(final Long resourceId, final Long messageId);
 
-    ResponseEntity<Message> createCommentMessageInResource();
+    // Create a Comment Message in a Resource
+    ResponseEntity<Message> createCommentMessageInResource(final Long resourceId, final CreateMessageDto message);
+
+    // Update a specific message of a Resource
+    ResponseEntity<Message> updateCommentMessageOfResource(final Long resourceId, final UpdateMessageDto message);
+
+    // Delete all Comment Messages of a Resource
+    ResponseEntity<Void> deleteCommentMessagesOfResource(final Long resourceId, final Long commentId);
+
+    // Delete a specific Comment Message of a Resource
+    ResponseEntity<Void> deleteCommentMessageOfResource(final Long resourceId, final Long commentId, final Long messageId);
+
+    // Find a specific Comment by Resource
+    ResponseEntity<Comment> findCommentByIdAndResource(final Long resourceId, final Long commentId);
 
     //endregion
 
-//    ResponseEntity<Comment> findById(final Long id);
-//
-//    ResponseEntity<Collection<Comment>> findAll();
-//
-//    Collection<Comment> findByProperty(final String property);
-//
-//    ResponseEntity<Comment> create(final CreateCommentDto commentDto);
-//
-//    ResponseEntity<Comment> update(final UpdateCommentDto commentDto);
-//
-//    ResponseEntity<Void> deleteById(final Long id);
+    //region Shares Operation
+    //endregion
+
+    //region Rates Operation
+    //endregion
+
 }

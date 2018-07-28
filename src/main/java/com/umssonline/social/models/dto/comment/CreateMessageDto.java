@@ -1,22 +1,21 @@
 package com.umssonline.social.models.dto.comment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.umssonline.social.models.dto.BaseCreateDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
-public class CreateMessageDto {
+public class CreateMessageDto extends BaseCreateDto {
 
+    @NotBlank(message = "Text field should not be null or empty.")
     private String text;
-    private Long createdById;
 
-    @JsonIgnore
-    private Boolean isDeleted = false;
-    @JsonIgnore
-    private LocalDateTime createdAt = LocalDateTime.now();
-    @JsonIgnore
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @NotNull(message = "CommentId field should not be null.")
+    @Positive(message = "CommentId field should not be less than zero.")
+    private Long commentId;
 }
