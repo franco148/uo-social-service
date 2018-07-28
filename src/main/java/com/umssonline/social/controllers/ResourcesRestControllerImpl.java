@@ -75,14 +75,14 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Void> deleteCommentMessageOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                @PathVariable("comment_id") final Long commentId,
-                                                               @PathVariable("message_id") Long messageId) {
+                                                               @PathVariable("message_id") final Long messageId) {
         return null;
     }
 
     @GetMapping("/{resource_id}/comment/{comment_id}")
     @Override
     public ResponseEntity<Comment> findCommentByIdAndResource(@PathVariable("resource_id") final Long resourceId,
-                                                              @PathVariable("comment_id") Long commentId) {
+                                                              @PathVariable("comment_id") final Long commentId) {
         return null;
     }
 
@@ -155,38 +155,53 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
         return null;
     }
 
+    @GetMapping("/{resource_id}/score/{score_id}")
     @Override
-    public ResponseEntity<Score> findScoreByIdAndResource(Long resourceId, Long scoreId) {
+    public ResponseEntity<Score> findScoreByIdAndResource(@PathVariable("resource_id") final Long resourceId,
+                                                          @PathVariable("score_id") final Long scoreId) {
         return null;
     }
 
+    @PostMapping("/{resource_id}")
     @Override
-    public ResponseEntity<Score> createScoreInResource(Long resourceId, CreateScoreDto score) {
+    public ResponseEntity<Score> createScoreInResource(@PathVariable("resource_id") final Long resourceId,
+                                                       @Valid @RequestBody final CreateScoreDto score) {
         return null;
     }
 
+    @GetMapping("/{resource_id}/rate/{rate_id}")
     @Override
-    public ResponseEntity<Rate> findScoreRateByResource(Long resourceId, Long rateId) {
+    public ResponseEntity<Rate> findScoreRateByResource(@PathVariable("resource_id") final Long resourceId,
+                                                        @PathVariable("rate_id") final Long rateId) {
         return null;
     }
 
+    @PostMapping("/{resource_id}/rate")
     @Override
-    public ResponseEntity<Rate> rateToResource(Long resourceId, CreateRateDto rate) {
+    public ResponseEntity<Rate> rateToResource(@PathVariable("resource_id") final Long resourceId,
+                                               @Valid @RequestBody final CreateRateDto rate) {
         return null;
     }
 
+    @PutMapping("/{resource_id}/rate")
     @Override
-    public ResponseEntity<Rate> updateRateOfResource(Long resourceId, UpdateRateDto rate) {
+    public ResponseEntity<Rate> updateRateOfResource(@PathVariable("resource_id") final Long resourceId,
+                                                     @Valid @RequestBody final UpdateRateDto rate) {
         return null;
     }
 
+    @DeleteMapping("/{resource_id}/score/{score_id}/rate/{rate_id}")
     @Override
-    public ResponseEntity<Void> deleteRateOfResource(Long resourceId, Long scoreId, Long rateId) {
+    public ResponseEntity<Void> deleteRateOfResource(@PathVariable("resource_id") final Long resourceId,
+                                                     @PathVariable("score_id") final Long scoreId,
+                                                     @PathVariable("rate_id") final Long rateId) {
         return null;
     }
 
+    @DeleteMapping("/{resource_id}/score/{score_id}")
     @Override
-    public ResponseEntity<Void> deleteAllRatesOfResource(Long resourceId, Long scoreId) {
+    public ResponseEntity<Void> deleteAllRatesOfResource(@PathVariable("resource_id") final Long resourceId,
+                                                         @PathVariable("score_id") final Long scoreId) {
         return null;
     }
     //endregion
