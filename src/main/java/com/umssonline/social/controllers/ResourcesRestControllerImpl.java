@@ -6,10 +6,10 @@ import com.umssonline.social.models.dto.comment.UpdateMessageDto;
 import com.umssonline.social.models.dto.rate.CreateRateDto;
 import com.umssonline.social.models.dto.rate.CreateScoreDto;
 import com.umssonline.social.models.dto.rate.UpdateRateDto;
-import com.umssonline.social.models.entity.Comment;
-import com.umssonline.social.models.entity.Message;
-import com.umssonline.social.models.entity.Rate;
-import com.umssonline.social.models.entity.Score;
+import com.umssonline.social.models.dto.share.CreateShareActionDto;
+import com.umssonline.social.models.dto.share.CreateShareDto;
+import com.umssonline.social.models.dto.share.UpdateShareActionDto;
+import com.umssonline.social.models.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
 
     //region Comments Operations
 
-    @GetMapping("/{resource_id}")
+    @GetMapping("/{resource_id}/comments")
     @Override
     public ResponseEntity<Comment> findAllCommentMessagesByResource(@PathVariable("resource_id") final Long resourceId) {
         return null;
@@ -67,7 +67,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @DeleteMapping("/{resource_id}/comment/{comment_id}")
     @Override
     public ResponseEntity<Void> deleteAllCommentMessagesOfResource(@PathVariable("resource_id") final Long resourceId,
-                                                                @PathVariable("comment_id") final Long commentId) {
+                                                                   @PathVariable("comment_id") final Long commentId) {
         return null;
     }
 
@@ -88,10 +88,70 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
 
     //endregion
 
+    //region Shares Operation
+
+    @GetMapping("/{resource_id}/shares")
+    @Override
+    public ResponseEntity<Share> findAllSharesByResource(@PathVariable("resource_id") final Long resourceId) {
+        return null;
+    }
+
+    @GetMapping("/{resource_id}/share/{share_id}")
+    @Override
+    public ResponseEntity<Share> findShareByIdAndResource(@PathVariable("resource_id") final Long resourceId,
+                                                          @PathVariable("share_id") final Long shareId) {
+        return null;
+    }
+
+    @PostMapping("/{resource_id}/share")
+    @Override
+    public ResponseEntity<Share> createShareInResource(@PathVariable("resource_id") final Long resourceId,
+                                                       @Valid @RequestBody final CreateShareDto share) {
+        return null;
+    }
+
+    @GetMapping("/{resource_id}/share-action/{share_action_id}")
+    @Override
+    public ResponseEntity<ShareAction> findShareActionByResource(@PathVariable("resource_id") final Long resourceId,
+                                                                 @PathVariable("share_action_id") final Long shareActionId) {
+        return null;
+    }
+
+    @PostMapping("/{resource_id}/share-action")
+    @Override
+    public ResponseEntity<ShareAction> shareResource(@PathVariable("resource_id") final Long resourceId,
+                                                     @Valid @RequestBody final CreateShareActionDto shareAction) {
+        return null;
+    }
+
+    @PutMapping("/{resource_id}/share-action")
+    @Override
+    public ResponseEntity<ShareAction> updateShareOfResource(@PathVariable("resource_id") final Long resourceId,
+                                                             @Valid @RequestBody final UpdateShareActionDto shareAction) {
+        return null;
+    }
+
+    @DeleteMapping("/{resource_id}/share/{share_id}/share-action/{share_action_id}")
+    @Override
+    public ResponseEntity<Void> deleteShareOfResource(@PathVariable("resource_id") final Long resourceId,
+                                                      @PathVariable("share_id") final Long shareId,
+                                                      @PathVariable("share_action_id") final Long shareActionId) {
+        return null;
+    }
+
+    @DeleteMapping("/{resource_id}/share/{share_id}")
+    @Override
+    public ResponseEntity<Void> deleteAllShareActionsOfResource(@PathVariable("resource_id") final Long resourceId,
+                                                                @PathVariable("share_id") final Long shareId) {
+        return null;
+    }
+    //endregion
+
     //region Rates Operation
 
+    @GetMapping("/{resource_id}/Scores")
     @Override
-    public ResponseEntity<Score> findAllScoreRatesByResource(Long resourceId) {
+    public ResponseEntity<Score> findAllScoreRatesByResource(@PathVariable("resource_id") final Long resourceId) {
         return null;
     }
 

@@ -6,10 +6,10 @@ import com.umssonline.social.models.dto.comment.UpdateMessageDto;
 import com.umssonline.social.models.dto.rate.CreateRateDto;
 import com.umssonline.social.models.dto.rate.CreateScoreDto;
 import com.umssonline.social.models.dto.rate.UpdateRateDto;
-import com.umssonline.social.models.entity.Comment;
-import com.umssonline.social.models.entity.Message;
-import com.umssonline.social.models.entity.Rate;
-import com.umssonline.social.models.entity.Score;
+import com.umssonline.social.models.dto.share.CreateShareActionDto;
+import com.umssonline.social.models.dto.share.CreateShareDto;
+import com.umssonline.social.models.dto.share.UpdateShareActionDto;
+import com.umssonline.social.models.entity.*;
 import org.springframework.http.ResponseEntity;
 
 public interface ResourcesRestController {
@@ -43,6 +43,30 @@ public interface ResourcesRestController {
     //endregion
 
     //region Shares Operation
+
+    // Find a share with all its relates sharing actions
+    ResponseEntity<Share> findAllSharesByResource(final Long resourceId);
+
+    // Find a specific Share by Resource (score only)
+    ResponseEntity<Share> findShareByIdAndResource(final Long resourceId, final Long shareId);
+
+    // Create share in a Resource
+    ResponseEntity<Share> createShareInResource(final Long resourceId, final CreateShareDto share);
+
+    // Find a specific Share Action in a Resource
+    ResponseEntity<ShareAction> findShareActionByResource(final Long resourceId, final Long shareActionId);
+
+    // Share a Resource
+    ResponseEntity<ShareAction> shareResource(final Long resourceId, final CreateShareActionDto shareAction);
+
+    // Update a specific share action of a resource
+    ResponseEntity<ShareAction> updateShareOfResource(final Long resourceId, final UpdateShareActionDto shareAction);
+
+    // Delete a share action rate of a Resource
+    ResponseEntity<Void> deleteShareOfResource(final Long resourceId, final Long shareId, final Long shareActionId);
+
+    // Delete all Share Actions of a Resource
+    ResponseEntity<Void> deleteAllShareActionsOfResource(final Long resourceId, final Long shareId);
     //endregion
 
     //region Rates Operation
