@@ -10,6 +10,7 @@ import com.umssonline.social.models.dto.share.CreateShareActionDto;
 import com.umssonline.social.models.dto.share.CreateShareDto;
 import com.umssonline.social.models.dto.share.UpdateShareActionDto;
 import com.umssonline.social.models.entity.*;
+import com.umssonline.social.services.CommentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,14 @@ import javax.validation.Valid;
 @RequestMapping("/resources")
 public class ResourcesRestControllerImpl implements ResourcesRestController {
 
+    //region Properties
+    @Autowired
+    private CommentService commentService;
+
     @Autowired
     private ModelMapper modelMapper;
+    //endregion
+
 
     //region Comments Operations
 

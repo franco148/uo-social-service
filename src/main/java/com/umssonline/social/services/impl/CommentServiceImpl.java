@@ -2,6 +2,7 @@ package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Participant;
+import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
 import com.umssonline.social.services.CommentService;
 import com.umssonline.social.services.ParticipantService;
@@ -56,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
             //throw new Exception("Neither Resource nor CreatedBy properties can be null.");
         }
 
-        com.umssonline.social.models.entity.Resource resourceFromDb = resourceService.findById(entity.getCommentedResource().getId());
+        Resource resourceFromDb = resourceService.findById(entity.getCommentedResource().getId());
         if (resourceFromDb == null) {
             //throw new Exception("Comment can not be created, it does not have a related Resource");
         }
