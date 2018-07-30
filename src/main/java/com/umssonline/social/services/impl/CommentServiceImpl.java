@@ -4,6 +4,7 @@ import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
+import com.umssonline.social.repositories.feign.UsersClient;
 import com.umssonline.social.services.CommentService;
 import com.umssonline.social.services.ParticipantService;
 import com.umssonline.social.services.ResourceService;
@@ -28,6 +29,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private UsersClient usersClient;
     //endregion
 
     //region SocialService Members

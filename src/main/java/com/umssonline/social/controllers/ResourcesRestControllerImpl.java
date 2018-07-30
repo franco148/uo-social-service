@@ -43,6 +43,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Comment> createCommentInResource(@PathVariable("resource_id") final Long resourceId,
                                                            @Valid @RequestBody final CreateCommentDto comment) {
+        Comment converted = modelMapper.map(comment, Comment.class);
+        commentService.save(converted);
         return null;
     }
 
@@ -169,7 +171,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
         return null;
     }
 
-    @PostMapping("/{resource_id}")
+    @PostMapping("/{resource_id}/score")
     @Override
     public ResponseEntity<Score> createScoreInResource(@PathVariable("resource_id") final Long resourceId,
                                                        @Valid @RequestBody final CreateScoreDto score) {
