@@ -30,31 +30,37 @@ public class ResourceServiceImpl implements ResourceService {
         return resourceFromDb;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Collection<Resource> findByProperty(String propertyName) {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Collection<Resource> findAll() {
         return resourceDao.findAll();
     }
 
+    @Transactional
     @Override
     public Resource save(Resource resource) {
         return resourceDao.create(resource);
     }
 
+    @Transactional
     @Override
     public Resource update(Resource resource) {
         return resourceDao.update(resource);
     }
 
+    @Transactional
     @Override
     public void delete(Resource resource) {
         resourceDao.delete(resource);
     }
 
+    @Transactional
     @Override
     public void deleteById(Serializable id) {
         resourceDao.deleteById(id);
