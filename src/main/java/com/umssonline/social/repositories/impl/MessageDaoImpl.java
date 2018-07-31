@@ -1,6 +1,6 @@
 package com.umssonline.social.repositories.impl;
 
-import com.umssonline.social.models.Message;
+import com.umssonline.social.models.entity.Message;
 import com.umssonline.social.repositories.api.ExtendedMessageDao;
 import org.springframework.stereotype.Repository;
 

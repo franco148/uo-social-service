@@ -1,9 +1,9 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.common.dto.CreateRateDto;
-import com.umssonline.social.common.dto.UpdateRateDto;
-import com.umssonline.social.models.Rate;
-import com.umssonline.social.services.SocialService;
+import com.umssonline.social.models.dto.rate.CreateRateDto;
+import com.umssonline.social.models.dto.rate.UpdateRateDto;
+import com.umssonline.social.models.entity.Rate;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class RatesRestControllerImpl implements RatesRestController {
 
     //region Properties
     @Autowired
-    private SocialService<Rate> rateService;
+    private CrudSocialService<Rate> rateService;
 
     @Autowired
     private ModelMapper modelMapper;

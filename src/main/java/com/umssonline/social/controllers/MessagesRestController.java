@@ -1,8 +1,8 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.common.dto.CreateMessageDto;
-import com.umssonline.social.common.dto.UpdateMessageDto;
-import com.umssonline.social.models.Message;
+import com.umssonline.social.models.dto.comment.CreateMessageDto;
+import com.umssonline.social.models.dto.comment.UpdateMessageDto;
+import com.umssonline.social.models.entity.Message;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;

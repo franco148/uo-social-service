@@ -1,9 +1,9 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.common.dto.CreateCommentDto;
-import com.umssonline.social.common.dto.UpdateCommentDto;
-import com.umssonline.social.models.Comment;
-import com.umssonline.social.services.SocialService;
+import com.umssonline.social.models.dto.comment.CreateCommentDto;
+import com.umssonline.social.models.dto.comment.UpdateCommentDto;
+import com.umssonline.social.models.entity.Comment;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
     //region Properties
     @Resource
-    private SocialService<Comment> commentService;
+    private CrudSocialService<Comment> commentService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -29,19 +29,20 @@ public class CommentsRestControllerImpl implements CommentsRestController {
     //region CommentsRestController Members
     @Override
     @GetMapping("/{comment_id}")
-    public ResponseEntity<Comment> findById(@PathVariable("comment_id") final Long id) throws Exception {
+    public ResponseEntity<Comment> findById(@PathVariable("comment_id") final Long id) {
 
         try {
             Comment commentResponse = commentService.findById(id);
             return new ResponseEntity<>(commentResponse, HttpStatus.OK);
         } catch (Exception ex) {
-            throw new Exception("Error on getting a comment: " + ex.getMessage());
+            //throw new Exception("Error on getting a comment: " + ex.getMessage());
+            return null;
         }
     }
 
     @Override
     @GetMapping
-    public ResponseEntity<Collection<Comment>> findAll() throws Exception {
+    public ResponseEntity<Collection<Comment>> findAll() {
 
         try {
             Collection<Comment> commentsResponse = commentService.findAll();
@@ -52,7 +53,8 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
             return new ResponseEntity<>(commentsResponse, HttpStatus.OK);
         } catch (Exception ex) {
-            throw new Exception("Error on getting comments: " + ex.getMessage());
+            //throw new Exception("Error on getting comments: " + ex.getMessage());
+            return null;
         }
     }
 
@@ -64,14 +66,15 @@ public class CommentsRestControllerImpl implements CommentsRestController {
 
     @Override
     @PostMapping
-    public ResponseEntity<Comment> create(@RequestBody final CreateCommentDto commentDto) throws Exception {
+    public ResponseEntity<Comment> create(@RequestBody final CreateCommentDto commentDto) {
         Comment converted = modelMapper.map(commentDto, Comment.class);
         try {
             Comment savedComment = commentService.save(converted);
             return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            throw new Exception("Save comment has failed. The operation has been terminated: " + ex.getMessage());
+            //throw new Exception("Save comment has failed. The operation has been terminated: " + ex.getMessage());
+            return null;
         }
     }
 

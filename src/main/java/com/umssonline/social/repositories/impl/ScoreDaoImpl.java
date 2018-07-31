@@ -1,6 +1,6 @@
 package com.umssonline.social.repositories.impl;
 
-import com.umssonline.social.models.Score;
+import com.umssonline.social.models.entity.Score;
 import com.umssonline.social.repositories.api.ExtendedScoreDao;
 import org.springframework.stereotype.Repository;
 

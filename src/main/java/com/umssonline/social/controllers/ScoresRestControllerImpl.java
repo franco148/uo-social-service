@@ -1,7 +1,7 @@
 package com.umssonline.social.controllers;
 
-import com.umssonline.social.models.Score;
-import com.umssonline.social.services.SocialService;
+import com.umssonline.social.models.entity.Score;
+import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class ScoresRestControllerImpl implements ScoresRestController {
 
     //region Properties
     @Autowired
-    private SocialService<Score> scoreService;
+    private CrudSocialService<Score> scoreService;
 
     @Autowired
     private ModelMapper modelMapper;
