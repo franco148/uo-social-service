@@ -1,12 +1,15 @@
 package com.umssonline.social.repositories.feign;
 
 import com.umssonline.social.models.dto.participant.ParticipantDto;
+import com.umssonline.social.models.entity.Participant;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient("AUTH-SERVICE")
+@Component
+@FeignClient("AUTH-SERVICE/users")
 public interface UsersClient {
 
     @RequestMapping
@@ -14,5 +17,13 @@ public interface UsersClient {
         value = "/{user_id}",
         method = RequestMethod.GET
     )
-    ParticipantDto findParticipant(@PathVariable("user_id") final Long participantId);
+    ParticipantDto findParticipantDto(@PathVariable("user_id") final Long participantId);
+
+    @RequestMapping
+    (
+        value = "/{user_id}",
+        method = RequestMethod.GET,
+        consumes = {"application/json"}
+    )
+    Participant findParticipant(@PathVariable("user_id") final Long participantId);
 }

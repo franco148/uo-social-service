@@ -24,7 +24,7 @@ public abstract class BaseEntity {
     private Boolean isDeleted;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "FK_CreatedBy")
     private Participant createdBy;
     @JsonManagedReference

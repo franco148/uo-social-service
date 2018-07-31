@@ -13,6 +13,7 @@ import com.umssonline.social.models.entity.*;
 import com.umssonline.social.services.CommentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +45,9 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Comment> createCommentInResource(@PathVariable("resource_id") final Long resourceId,
                                                            @Valid @RequestBody final CreateCommentDto comment) {
         Comment converted = modelMapper.map(comment, Comment.class);
-        commentService.save(converted);
-        return null;
+        Comment saved = commentService.save(converted);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @GetMapping("/{resource_id}/message/{message_id}")

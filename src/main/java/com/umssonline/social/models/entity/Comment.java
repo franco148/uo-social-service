@@ -19,7 +19,7 @@ public class Comment extends BaseEntity {
     private Integer messagesAmount;
 
     @JsonManagedReference
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "FK_Resource")
     private Resource commentedResource;
     @JsonManagedReference
