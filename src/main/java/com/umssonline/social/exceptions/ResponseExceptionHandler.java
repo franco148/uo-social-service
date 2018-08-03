@@ -31,6 +31,13 @@ public class ResponseExceptionHandler  extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidResourceException.class)
+    public final ResponseEntity<ExceptionResponse> manageInvalidResourceException(InvalidResourceException ex, WebRequest request){
+        logger.warn("A custom exception has occurred: " + ex.getMessage());
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         logger.warn("A validation exception has occurred: " + ex.getBindingResult().toString());
