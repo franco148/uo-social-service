@@ -5,9 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Set;
+
+//Soft delete
+@SQLDelete(sql = "update participants set is_deleted=true where id=?")
+//Conditions when retrieving data when it is not deleted
+@Where(clause = "is_deleted=false")
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
@@ -15,6 +22,7 @@ import java.util.Set;
 @ToString(exclude = {"shared", "sharedWithMe", "messages"})
 
 @Entity
+@Table(name = "participants")
 public class Participant {
 
     @Id

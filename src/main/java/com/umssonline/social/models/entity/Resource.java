@@ -3,8 +3,15 @@ package com.umssonline.social.models.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+
+//Soft delete
+@SQLDelete(sql = "update resources set is_deleted=true where id=?")
+//Conditions when retrieving data when it is not deleted
+@Where(clause = "is_deleted=false")
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
@@ -12,6 +19,7 @@ import javax.persistence.*;
 @ToString(exclude = {"score", "share", "comment"})
 
 @Entity
+@Table(name = "resources")
 public class Resource {
 
     @Id

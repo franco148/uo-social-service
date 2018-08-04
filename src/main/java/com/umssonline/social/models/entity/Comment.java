@@ -3,9 +3,16 @@ package com.umssonline.social.models.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Set;
+
+//Soft delete
+@SQLDelete(sql = "update comments set is_deleted=true where id=?")
+//Conditions when retrieving data when it is not deleted
+@Where(clause = "is_deleted=false")
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EqualsAndHashCode(exclude = {"commentedResource", "messages"}, callSuper = false)
@@ -13,6 +20,7 @@ import java.util.Set;
 @Data
 
 @Entity
+@Table(name = "comments")
 public class Comment extends BaseEntity {
 
     @Column(nullable = false)
