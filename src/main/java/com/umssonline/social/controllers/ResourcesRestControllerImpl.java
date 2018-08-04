@@ -72,7 +72,10 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Message> createCommentMessageInResource(@PathVariable("resource_id") final Long resourceId,
                                                                   @Valid @RequestBody final CreateMessageDto message) {
-        return null;
+        Message converted = modelMapper.map(message, Message.class);
+        Message saved = messageService.save(converted);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PutMapping("/{resource_id}/message")
@@ -81,9 +84,9 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
                                                                   @Valid @RequestBody final UpdateMessageDto message) {
 
         Message converted = modelMapper.map(message, Message.class);
-        System.out.println(converted);
+        Message updated = messageService.update(converted);
 
-        return null;
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{resource_id}/comment/{comment_id}")

@@ -2,7 +2,9 @@ package com.umssonline.social.services.impl;
 
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Message;
+import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.repositories.api.ExtendedMessageDao;
+import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import com.umssonline.social.services.CommentService;
 import com.umssonline.social.services.MessageService;
 import org.modelmapper.ModelMapper;
@@ -19,6 +21,8 @@ public class MessageServiceImpl implements MessageService {
     //region Properties
     @Autowired
     private ExtendedMessageDao messageDao;
+
+    private ExtendedParticipantDao participantDao;
 
     @Autowired
     private CommentService commentService;
@@ -59,16 +63,15 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message save(Message message) {
 
-        if (message.getComment() == null || message.getCreatedBy() == null) {
-            //throw new Exception("Neither Comment nor CreatedBy properties can be null.");
-        }
-
         Comment commentFromDb = commentService.findById(message.getComment().getId());
         if (commentFromDb == null) {
-            //throw new Exception("Message can not be created, it does not have a related Comment");
+            throw new EntityNotFoundException("Message can not be created, it does not have a related Comment");
         }
 
-        message.setComment(commentFromDb);
+        Participant createdBy = participantDao.findById(message.getCreatedBy().getId());
+        if (createdBy == null) {
+            participantDao.create(message.getCreatedBy());
+        }
 
         return messageDao.create(message);
     }
@@ -76,9 +79,14 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message update(Message message) {
 
+        Comment commentFromDb = commentService.findById(message.getComment().getId());
+        if (commentFromDb == null) {
+            throw new EntityNotFoundException("Related comment to the message does not exist.");
+        }
+
         Message messageFromDb = messageDao.findById(message.getId());
         if (messageFromDb == null) {
-            //throw new Exception("");
+            throw new EntityNotFoundException("Message to be updated does not exist.");
         }
 
         modelMapper.map(message, messageFromDb);
