@@ -93,7 +93,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Void> deleteAllCommentMessagesOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                    @PathVariable("comment_id") final Long commentId) {
-        return null;
+        commentService.deleteById(commentId);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{resource_id}/comment/{comment_id}/message/{message_id}")
@@ -101,14 +102,16 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Void> deleteCommentMessageOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                @PathVariable("comment_id") final Long commentId,
                                                                @PathVariable("message_id") final Long messageId) {
-        return null;
+        messageService.deleteById(messageId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{resource_id}/comment/{comment_id}")
     @Override
     public ResponseEntity<Comment> findCommentByIdAndResource(@PathVariable("resource_id") final Long resourceId,
                                                               @PathVariable("comment_id") final Long commentId) {
-        return null;
+        Comment foundComment = commentService.findById(commentId);
+        return ResponseEntity.ok(foundComment);
     }
 
     //endregion
