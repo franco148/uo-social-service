@@ -11,11 +11,6 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.Set;
 
-//Soft delete
-@SQLDelete(sql = "update participants set is_deleted=true where id=?")
-//Conditions when retrieving data when it is not deleted
-@Where(clause = "is_deleted=false")
-
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @EqualsAndHashCode(exclude = {"shared", "sharedWithMe", "messages"})

@@ -10,6 +10,7 @@ import com.umssonline.social.services.MessageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private ExtendedMessageDao messageDao;
 
+    @Autowired
     private ExtendedParticipantDao participantDao;
 
     @Autowired
@@ -33,11 +35,13 @@ public class MessageServiceImpl implements MessageService {
 
 
     //region SocialService Members
+    @Transactional(readOnly = true)
     @Override
     public Message findById(Serializable id) {
         return messageDao.findById(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Message findByIdAndResource(Serializable resourceId, Serializable messageId) {
         Message savedMessage = messageDao.findById(messageId);
@@ -50,16 +54,25 @@ public class MessageServiceImpl implements MessageService {
         return savedMessage;
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId) {
+        return messageDao.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
+    }
+
+    @Transactional(readOnly = true)
     @Override
     public Collection<Message> findByProperty(String propertyName) {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Collection<Message> findAll() {
         return messageDao.findAll();
     }
 
+    @Transactional
     @Override
     public Message save(Message message) {
 
@@ -76,6 +89,7 @@ public class MessageServiceImpl implements MessageService {
         return messageDao.create(message);
     }
 
+    @Transactional
     @Override
     public Message update(Message message) {
 
@@ -94,11 +108,13 @@ public class MessageServiceImpl implements MessageService {
         return messageDao.update(messageFromDb);
     }
 
+    @Transactional
     @Override
     public void delete(Message message) {
         messageDao.delete(message);
     }
 
+    @Transactional
     @Override
     public void deleteById(Serializable id) {
         messageDao.deleteById(id);

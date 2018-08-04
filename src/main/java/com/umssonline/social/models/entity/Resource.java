@@ -8,11 +8,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
-//Soft delete
-@SQLDelete(sql = "update resources set is_deleted=true where id=?")
-//Conditions when retrieving data when it is not deleted
-@Where(clause = "is_deleted=false")
-
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @EqualsAndHashCode(exclude = {"score", "share", "comment"})

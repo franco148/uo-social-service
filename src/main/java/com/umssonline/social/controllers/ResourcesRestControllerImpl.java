@@ -102,6 +102,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Void> deleteCommentMessageOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                @PathVariable("comment_id") final Long commentId,
                                                                @PathVariable("message_id") final Long messageId) {
+        Message result = messageService.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
         messageService.deleteById(messageId);
         return ResponseEntity.noContent().build();
     }
