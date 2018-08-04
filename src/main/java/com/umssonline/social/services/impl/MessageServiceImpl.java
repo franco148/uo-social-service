@@ -86,7 +86,7 @@ public class MessageServiceImpl implements MessageService {
             participantDao.create(message.getCreatedBy());
         }
 
-        return messageDao.create(message);
+        return messageDao.update(message);
     }
 
     @Transactional

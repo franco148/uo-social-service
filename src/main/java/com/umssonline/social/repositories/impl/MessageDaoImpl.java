@@ -5,7 +5,6 @@ import com.umssonline.social.repositories.api.ExtendedMessageDao;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Repository
 public class MessageDaoImpl extends AbstractJpaDao<Message> implements ExtendedMessageDao {
@@ -24,12 +23,17 @@ public class MessageDaoImpl extends AbstractJpaDao<Message> implements ExtendedM
 
         Message filteredMessage = this.entityManager.createQuery
                 (
-                    "select msg" +
-                        "from Message msg" +
-                        "join fetch msg.comment c" +
-                        "join fetch c.commentedResource r",
+                    "select msg " +
+                       "from Message msg " +
+                       "join fetch msg.comment c " +
+                       "join fetch c.commentedResource r " +
+                       "where r.id = :resourceId AND c.id = :commentId AND msg.id = :messageId",
                     Message.class
-                ).getSingleResult();
+                )
+                .setParameter("resourceId", resourceId)
+                .setParameter("commentId", commentId)
+                .setParameter("messageId", messageId)
+                .getSingleResult();
 
         return filteredMessage;
     }
