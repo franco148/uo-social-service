@@ -18,7 +18,7 @@ import java.util.Set;
 public class Participant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @JsonBackReference

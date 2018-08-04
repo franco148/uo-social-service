@@ -1,10 +1,12 @@
 package com.umssonline.social.services.impl;
 
+import com.umssonline.social.exceptions.InvalidResourceException;
 import com.umssonline.social.models.dto.participant.ParticipantDto;
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
+import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
 import com.umssonline.social.repositories.feign.UsersClient;
 import com.umssonline.social.services.CommentService;
@@ -32,6 +34,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private ExtendedResourceDao resourceDao;
+
+    @Autowired
+    private ExtendedParticipantDao participantDao;
 
     @Autowired
     private ResourceService resourceService;
@@ -75,12 +80,17 @@ public class CommentServiceImpl implements CommentService {
             resourceDao.create(commentedResource);
         }
 
-        ParticipantDto createdBy = usersClient.findParticipantDto(entity.getCreatedBy().getId());
-        if (createdBy == null) {
-            throw new EntityNotFoundException("Participant with id: " + entity.getCreatedBy().getId() + " does not exist.");
+        ParticipantDto participantExists = usersClient.findParticipantDto(entity.getCreatedBy().getId());
+        if (participantExists == null) {
+            throw new InvalidResourceException("Participant with id: " + entity.getCreatedBy().getId() + " does not exist.");
+        } else {
+            Participant createdBy = participantDao.findById(entity.getCreatedBy().getId());
+            if (createdBy == null) {
+                participantDao.create(entity.getCreatedBy());
+            }
         }
 
-        entity.setCommentedResource(commentedResource);
+        //entity.setCommentedResource(commentedResource);
         return commentDao.create(entity);
         //return null;
     }
