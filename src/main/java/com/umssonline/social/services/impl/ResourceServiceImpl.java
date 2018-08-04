@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -25,8 +26,11 @@ public class ResourceServiceImpl implements ResourceService {
         Resource resourceFromDb = resourceDao.findById(id);
 
         if (resourceFromDb == null) {
-            //throw new Exception("Resource with the specified ID does not exist.");
+            throw new EntityNotFoundException("Resource with the specified ID does not exist.");
         }
+
+        resourceFromDb.getComment().getMessages();
+
         return resourceFromDb;
     }
 

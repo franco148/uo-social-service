@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -31,6 +32,18 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message findById(Serializable id) {
         return messageDao.findById(id);
+    }
+
+    @Override
+    public Message findByIdAndResource(Serializable resourceId, Serializable messageId) {
+        Message savedMessage = messageDao.findById(messageId);
+
+        Long commentedResourceId = savedMessage.getComment().getCommentedResource().getId();
+        if (resourceId != commentedResourceId) {
+            throw new EntityNotFoundException("Message with a specified ID and ResourceId does not exist.");
+        }
+
+        return savedMessage;
     }
 
     @Override
@@ -82,5 +95,6 @@ public class MessageServiceImpl implements MessageService {
     public void deleteById(Serializable id) {
         messageDao.deleteById(id);
     }
+
     //endregion
 }

@@ -90,9 +90,7 @@ public class CommentServiceImpl implements CommentService {
             }
         }
 
-        //entity.setCommentedResource(commentedResource);
         return commentDao.create(entity);
-        //return null;
     }
 
     @Transactional

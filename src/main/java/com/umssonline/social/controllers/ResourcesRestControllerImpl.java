@@ -11,6 +11,8 @@ import com.umssonline.social.models.dto.share.CreateShareDto;
 import com.umssonline.social.models.dto.share.UpdateShareActionDto;
 import com.umssonline.social.models.entity.*;
 import com.umssonline.social.services.CommentService;
+import com.umssonline.social.services.MessageService;
+import com.umssonline.social.services.ResourceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +26,15 @@ import javax.validation.Valid;
 public class ResourcesRestControllerImpl implements ResourcesRestController {
 
     //region Properties
+
+    @Autowired
+    private ResourceService resourceService;
+
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -37,7 +46,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @GetMapping("/{resource_id}/comments")
     @Override
     public ResponseEntity<Comment> findAllCommentMessagesByResource(@PathVariable("resource_id") final Long resourceId) {
-        return null;
+        Resource savedResource = resourceService.findById(resourceId);
+        return ResponseEntity.ok(savedResource.getComment());
     }
 
     @PostMapping("/{resource_id}/comment")
@@ -54,7 +64,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Message> findCommentMessageByResource(@PathVariable("resource_id") final Long resourceId,
                                                                 @PathVariable("message_id") final Long messageId) {
-        return null;
+        Message foundMessage = messageService.findByIdAndResource(resourceId, messageId);
+        return ResponseEntity.ok(foundMessage);
     }
 
     @PostMapping("/{resource_id}/message")
