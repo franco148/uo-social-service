@@ -47,7 +47,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Comment> findAllCommentMessagesByResource(@PathVariable("resource_id") final Long resourceId) {
         Resource savedResource = resourceService.findById(resourceId);
-        return ResponseEntity.ok(savedResource.getComment());
+        return ResponseEntity.status(HttpStatus.FOUND).body(savedResource.getComment());
     }
 
     @PostMapping("/{resource_id}/comment")
@@ -65,7 +65,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Message> findCommentMessageByResource(@PathVariable("resource_id") final Long resourceId,
                                                                 @PathVariable("message_id") final Long messageId) {
         Message foundMessage = messageService.findByIdAndResourceId(resourceId, messageId);
-        return ResponseEntity.ok(foundMessage);
+        return ResponseEntity.status(HttpStatus.FOUND).body(foundMessage);
     }
 
     @PostMapping("/{resource_id}/message")
@@ -112,7 +112,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Comment> findCommentByIdAndResource(@PathVariable("resource_id") final Long resourceId,
                                                               @PathVariable("comment_id") final Long commentId) {
         Comment foundComment = commentService.findById(commentId);
-        return ResponseEntity.ok(foundComment);
+        return ResponseEntity.status(HttpStatus.FOUND).body(foundComment);
     }
 
     //endregion
