@@ -34,30 +34,11 @@ public class MessageServiceImpl implements MessageService {
     //endregion
 
 
-    //region SocialService Members
+    //region CrudSocialService Members
     @Transactional(readOnly = true)
     @Override
     public Message findById(Serializable id) {
         return messageDao.findById(id);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Message findByIdAndResource(Serializable resourceId, Serializable messageId) {
-        Message savedMessage = messageDao.findById(messageId);
-
-        Long commentedResourceId = savedMessage.getComment().getCommentedResource().getId();
-        if (resourceId != commentedResourceId) {
-            throw new EntityNotFoundException("Message with a specified ID and ResourceId does not exist.");
-        }
-
-        return savedMessage;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId) {
-        return messageDao.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
     }
 
     @Transactional(readOnly = true)
@@ -120,5 +101,19 @@ public class MessageServiceImpl implements MessageService {
         messageDao.deleteById(id);
     }
 
+    //endregion
+
+    //region MessageService Members
+    @Transactional(readOnly = true)
+    @Override
+    public Message findByIdAndResourceId(Serializable resourceId, Serializable messageId) {
+        return messageDao.findByIdAndResourceId(messageId, resourceId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId) {
+        return messageDao.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
+    }
     //endregion
 }

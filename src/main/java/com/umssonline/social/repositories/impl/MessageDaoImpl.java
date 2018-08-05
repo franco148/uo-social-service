@@ -37,5 +37,24 @@ public class MessageDaoImpl extends AbstractJpaDao<Message> implements ExtendedM
 
         return filteredMessage;
     }
+
+    @Override
+    public Message findByIdAndResourceId(Serializable messageId, Serializable resourceId) {
+
+        Message filteredMessage = this.entityManager.createQuery
+                (
+                "select msg " +
+                   "from Message msg " +
+                   "join fetch msg.comment c " +
+                   "join fetch c.commentedResource r " +
+                   "where r.id = :resourceId AND msg.id = :messageId",
+                   Message.class
+                )
+                .setParameter("messageId", messageId)
+                .setParameter("resourceId", resourceId)
+                .getSingleResult();
+
+        return filteredMessage;
+    }
     //endregion
 }

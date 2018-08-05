@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -28,7 +29,7 @@ public class RateServiceImpl implements RateService {
     private ParticipantService participantService;
     //endregion
 
-    //region SocialService Members
+    //region CrudSocialService Members
     @Transactional(readOnly = true)
     @Override
     public Rate findById(Serializable id) {
@@ -51,17 +52,17 @@ public class RateServiceImpl implements RateService {
     public Rate save(Rate rate) {
 
         if (rate.getScore() == null || rate.getCreatedBy() == null) {
-            //throw new Exception("Neither Resource nor CreatedBy properties can be null.");
+            throw new EntityNotFoundException("Neither Resource nor CreatedBy properties can be null.");
         }
 
         Score scoreFromDb = scoreService.findById(rate.getScore().getId());
         if (scoreFromDb == null) {
-            //throw new Exception("Score can not be created, it does not have a related Score.");
+            throw new EntityNotFoundException("Score can not be created, it does not have a related Score.");
         }
 
         Participant participantFromDb = participantService.findById(rate.getCreatedBy().getId());
         if (participantFromDb == null) {
-            //throw new Exception("The owner who is rating the resource does not exists.");
+            throw new EntityNotFoundException("The owner who is rating the resource does not exists.");
         }
 
         rate.setScore(scoreFromDb);

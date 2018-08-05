@@ -64,7 +64,7 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Message> findCommentMessageByResource(@PathVariable("resource_id") final Long resourceId,
                                                                 @PathVariable("message_id") final Long messageId) {
-        Message foundMessage = messageService.findByIdAndResource(resourceId, messageId);
+        Message foundMessage = messageService.findByIdAndResourceId(resourceId, messageId);
         return ResponseEntity.ok(foundMessage);
     }
 

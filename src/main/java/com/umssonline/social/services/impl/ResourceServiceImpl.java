@@ -19,7 +19,7 @@ public class ResourceServiceImpl implements ResourceService {
     private ExtendedResourceDao resourceDao;
     //endregion
 
-    //region Properties
+    //region CrudSocialService Members
     @Transactional(readOnly = true)
     @Override
     public Resource findById(Serializable id) {

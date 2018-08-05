@@ -18,7 +18,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     private ExtendedParticipantDao participantDao;
     //endregion
 
-    //region SocialService Members
+    //region CrudSocialService Members
     @Transactional(readOnly = true)
     @Override
     public Participant findById(Serializable id) {

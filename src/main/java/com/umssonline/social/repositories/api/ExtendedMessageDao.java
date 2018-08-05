@@ -7,4 +7,6 @@ import java.io.Serializable;
 public interface ExtendedMessageDao extends SocialServiceDao<Message> {
 
     Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId);
+
+    Message findByIdAndResourceId(Serializable messageId, Serializable resourceId);
 }

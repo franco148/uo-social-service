@@ -10,8 +10,6 @@ import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
 import com.umssonline.social.repositories.feign.UsersClient;
 import com.umssonline.social.services.CommentService;
-import com.umssonline.social.services.ParticipantService;
-import com.umssonline.social.services.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -39,19 +36,13 @@ public class CommentServiceImpl implements CommentService {
     private ExtendedParticipantDao participantDao;
 
     @Autowired
-    private ResourceService resourceService;
-
-    @Autowired
-    private ParticipantService participantService;
-
-    @Autowired
     private UsersClient usersClient;
 
     @Autowired
     private ModelMapper modelMapper;
     //endregion
 
-    //region SocialService Members
+    //region CrudSocialService Members
     @Transactional(readOnly = true)
     @Override
     public Comment findById(Serializable id) {
@@ -112,6 +103,6 @@ public class CommentServiceImpl implements CommentService {
     }
     //endregion
 
-    //region Helpers
+    //region CommentService Members
     //endregion
 }
