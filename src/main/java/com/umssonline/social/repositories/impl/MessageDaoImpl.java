@@ -56,5 +56,48 @@ public class MessageDaoImpl extends AbstractJpaDao<Message> implements ExtendedM
 
         return filteredMessage;
     }
+
+    @Override
+    public boolean deleteMessageByIdFromCommentAndResource(Serializable messageId, Serializable commentId, Serializable resourceId) {
+
+//        DELETE FROM WordSet w
+//        WHERE w IN
+//                (SELECT ws FROM UserDictionary u
+//                        JOIN u.wordSets ws
+//                        WHERE u.user.username = :username AND ws.id = :id)
+
+//        int removed = this.entityManager.createQuery
+//                (
+//                "delete from Message msg " +
+//                   "where msg in " +
+//                        "(select m from Comment c " +
+//                        " join c.messages m " +
+//                        " join c.commentedResource r " +
+//                        " where c.id = :commentId AND r.id = :resourceId AND m.id = :messageId)"
+//                )
+//                .setParameter("resourceId", resourceId)
+//                .setParameter("commentId", commentId)
+//                .setParameter("messageId", messageId)
+//                .executeUpdate();
+
+        int removed = this.entityManager.createQuery
+                (
+                "update Message msg " +
+                   "set msg.isDeleted = true " +
+                   "where msg in " +
+                        "(select m from Comment c " +
+                        " join c.messages m " +
+                        " join c.commentedResource r " +
+                        " where c.id = :commentId AND r.id = :resourceId AND m.id = :messageId)"
+                )
+                .setParameter("resourceId", resourceId)
+                .setParameter("commentId", commentId)
+                .setParameter("messageId", messageId)
+                .executeUpdate();
+
+        System.out.println(removed);
+
+        return removed == 1;
+    }
     //endregion
 }

@@ -93,7 +93,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Void> deleteAllCommentMessagesOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                    @PathVariable("comment_id") final Long commentId) {
-        commentService.deleteById(commentId);
+        //commentService.deleteById(commentId);
+        commentService.deleteMessagesByResourceIdAndCommentId(resourceId, commentId);
         return ResponseEntity.noContent().build();
     }
 
@@ -102,8 +103,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Void> deleteCommentMessageOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                @PathVariable("comment_id") final Long commentId,
                                                                @PathVariable("message_id") final Long messageId) {
-        Message result = messageService.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
-        messageService.deleteById(messageId);
+
+        messageService.deleteMessageByIdFromCommentAndResource(messageId, commentId, resourceId);
         return ResponseEntity.noContent().build();
     }
 

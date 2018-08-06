@@ -7,6 +7,7 @@ import com.umssonline.social.repositories.api.ExtendedMessageDao;
 import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import com.umssonline.social.services.CommentService;
 import com.umssonline.social.services.MessageService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
+@Slf4j
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
@@ -114,6 +116,13 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId) {
         return messageDao.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
+    }
+
+    @Transactional
+    @Override
+    public void deleteMessageByIdFromCommentAndResource(Serializable messageId, Serializable commentId, Serializable resourceId) {
+        boolean removed = messageDao.deleteMessageByIdFromCommentAndResource(messageId, commentId, resourceId);
+        log.warn("Messages from a comment were removed? = " + removed);
     }
     //endregion
 }

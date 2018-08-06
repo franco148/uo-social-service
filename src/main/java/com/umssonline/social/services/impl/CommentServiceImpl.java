@@ -104,5 +104,15 @@ public class CommentServiceImpl implements CommentService {
     //endregion
 
     //region CommentService Members
+
+    @Transactional
+    @Override
+    public void deleteMessagesByResourceIdAndCommentId(Serializable resourceId, Serializable commentId) {
+        boolean removedMessages = commentDao.deleteMessagesByResourceIdAndCommentId(resourceId, commentId);
+        log.warn("Were comment and its messages removed? = " + removedMessages);
+
+        commentDao.deleteById(commentId);
+    }
+
     //endregion
 }

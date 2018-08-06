@@ -31,6 +31,6 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "FK_Resource")
     private Resource commentedResource;
     @JsonManagedReference
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private Set<Message> messages;
 }
