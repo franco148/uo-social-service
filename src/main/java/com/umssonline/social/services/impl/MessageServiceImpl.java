@@ -109,20 +109,45 @@ public class MessageServiceImpl implements MessageService {
     @Transactional(readOnly = true)
     @Override
     public Message findByIdAndResourceId(Serializable resourceId, Serializable messageId) {
-        return messageDao.findByIdAndResourceId(messageId, resourceId);
+        Message foundMessage = messageDao.findByIdAndResourceId(messageId, resourceId);
+
+        if (foundMessage == null) {
+            throw new EntityNotFoundException("Message with specified resourceId and messageId does not exist.");
+        }
+
+        return foundMessage;
     }
 
     @Transactional(readOnly = true)
     @Override
     public Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId) {
-        return messageDao.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
+        Message foundMessage = messageDao.findByIdAndCommentIdAndResourceId(messageId, commentId, resourceId);
+
+        if (foundMessage == null) {
+            throw new EntityNotFoundException("Message with specified resourceId, commentId and messageId does not exist.");
+        }
+
+        return foundMessage;
     }
 
     @Transactional
     @Override
     public void deleteMessageByIdFromCommentAndResource(Serializable messageId, Serializable commentId, Serializable resourceId) {
         boolean removed = messageDao.deleteMessageByIdFromCommentAndResource(messageId, commentId, resourceId);
-        log.warn("Messages from a comment were removed? = " + removed);
+
+        String deleteResultMessage = "Message with specified messageId, commentId, and resourceId could be found and removed? = ";
+        if (removed) {
+            log.info(deleteResultMessage + removed);
+        } else {
+            log.warn(deleteResultMessage + removed);
+        }
     }
+
+    @Transactional
+    @Override
+    public Message saveMessageInResource(Long resourceId, Message message) {
+        return null;
+    }
+
     //endregion
 }

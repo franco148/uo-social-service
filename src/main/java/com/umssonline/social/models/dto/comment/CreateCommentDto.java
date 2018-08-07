@@ -15,8 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 public class CreateCommentDto extends BaseCreateDto {
 
-    @NotNull(message = "CommentedResourceId field should not be null.")
-    @Positive(message = "CommentedResourceId field shoul not be less than zero.")
+//    @NotNull(message = "CommentedResourceId field should not be null.")
+//    @Positive(message = "CommentedResourceId field should not be less than zero.")
+    @JsonIgnore
     private Long commentedResourceId;
 
     @NotNull(message = "commentedResourceType field should not be null.")

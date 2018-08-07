@@ -11,4 +11,6 @@ public interface MessageService extends CrudSocialService<Message> {
     Message findByIdAndCommentIdAndResourceId(Serializable messageId, Serializable commentId, Serializable resourceId);
 
     void deleteMessageByIdFromCommentAndResource(Serializable messageId, Serializable commentId, Serializable resourceId);
+
+    Message saveMessageInResource(Long resourceId, Message message);
 }
