@@ -10,6 +10,8 @@ import com.umssonline.social.models.dto.share.CreateShareActionDto;
 import com.umssonline.social.models.dto.share.CreateShareDto;
 import com.umssonline.social.models.dto.share.UpdateShareActionDto;
 import com.umssonline.social.models.entity.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
 
 public interface ResourcesRestController {
@@ -17,27 +19,76 @@ public interface ResourcesRestController {
     //region Comments Operation
 
     // Find a comment with all its related messages
-    ResponseEntity<Comment> findAllCommentMessagesByResource(final Long resourceId);
+    @ApiOperation
+    (
+        notes = "Find a comment with all its related messages",
+        value = "Find All Comment's Messages By Resource",
+        nickname = "findAllCommentMessagesByResource"
+    )
+    ResponseEntity<Comment> findAllCommentMessagesByResource(@ApiParam(value = "ID of resource that needs to be fetched",
+                                                             required = true, type = "Number", name = "Resource ID") final Long resourceId);
 
     // Create a Comment in a Resource
+    @ApiOperation
+    (
+        notes = "Create a Comment in a Resource",
+        value = "Create Comment In Resource",
+        nickname = "createCommentInResource"
+    )
     ResponseEntity<Comment> createCommentInResource(final Long resourceId, final CreateCommentDto comment);
 
     // Find an specific Comment Message in a Resource
+    @ApiOperation
+    (
+        notes = "Find an specific Comment Message in a Resource",
+        value = "Find Comment's Message By Resource",
+        nickname = "findCommentMessageByResource"
+    )
     ResponseEntity<Message> findCommentMessageByResource(final Long resourceId, final Long messageId);
 
     // Create a Comment Message in a Resource
+    @ApiOperation
+    (
+        notes = "Create a Comment Message in a Resource",
+        value = "Create Comment's Message In Resource",
+        nickname = "createCommentMessageInResource"
+    )
     ResponseEntity<Message> createCommentMessageInResource(final Long resourceId, final CreateMessageDto message);
 
     // Update a specific message of a Resource
+    @ApiOperation
+    (
+        notes = "Update a specific message of a Resource",
+        value = "Update Comment's Message Of Resource",
+        nickname = "updateCommentMessageOfResource"
+    )
     ResponseEntity<Message> updateCommentMessageOfResource(final Long resourceId, final UpdateMessageDto message);
 
     // Delete all Comment Messages of a Resource
+    @ApiOperation
+    (
+        notes = "Delete all Comment Messages of a Resource",
+        value = "Delete All Comment's Messages Of Resource",
+        nickname = "deleteAllCommentMessagesOfResource"
+    )
     ResponseEntity<Void> deleteAllCommentMessagesOfResource(final Long resourceId, final Long commentId);
 
     // Delete a specific Comment Message of a Resource
+    @ApiOperation
+    (
+        notes = "Delete a specific Comment Message of a Resource",
+        value = "Delete Comment's Message of Resource",
+        nickname = "deleteCommentMessageOfResource"
+    )
     ResponseEntity<Void> deleteCommentMessageOfResource(final Long resourceId, final Long commentId, final Long messageId);
 
     // Find a specific Comment by Resource (comment only)
+    @ApiOperation
+    (
+        notes = "Find a specific Comment by Resource (comment only)",
+        value = "Find Comment By Id and Resource",
+        nickname = "findCommentByIdAndResource"
+    )
     ResponseEntity<Comment> findCommentByIdAndResource(final Long resourceId, final Long commentId);
 
     //endregion
