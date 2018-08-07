@@ -54,6 +54,8 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Comment> createCommentInResource(@PathVariable("resource_id") final Long resourceId,
                                                            @Valid @RequestBody final CreateCommentDto comment) {
+        comment.setCommentedResourceId(resourceId);
+
         Comment converted = modelMapper.map(comment, Comment.class);
         Comment saved = commentService.save(converted);
 
