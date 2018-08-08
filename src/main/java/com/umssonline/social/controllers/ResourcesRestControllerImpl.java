@@ -11,6 +11,8 @@ import com.umssonline.social.models.dto.share.CreateShareDto;
 import com.umssonline.social.models.dto.share.UpdateShareActionDto;
 import com.umssonline.social.models.entity.*;
 import com.umssonline.social.services.CommentService;
+import com.umssonline.social.services.MessageService;
+import com.umssonline.social.services.ResourceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +26,15 @@ import javax.validation.Valid;
 public class ResourcesRestControllerImpl implements ResourcesRestController {
 
     //region Properties
+
+    @Autowired
+    private ResourceService resourceService;
+
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -37,13 +46,16 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @GetMapping("/{resource_id}/comments")
     @Override
     public ResponseEntity<Comment> findAllCommentMessagesByResource(@PathVariable("resource_id") final Long resourceId) {
-        return null;
+        Resource savedResource = resourceService.findById(resourceId);
+        return ResponseEntity.status(HttpStatus.FOUND).body(savedResource.getComment());
     }
 
     @PostMapping("/{resource_id}/comment")
     @Override
     public ResponseEntity<Comment> createCommentInResource(@PathVariable("resource_id") final Long resourceId,
                                                            @Valid @RequestBody final CreateCommentDto comment) {
+        comment.setCommentedResourceId(resourceId);
+
         Comment converted = modelMapper.map(comment, Comment.class);
         Comment saved = commentService.save(converted);
 
@@ -54,14 +66,18 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     @Override
     public ResponseEntity<Message> findCommentMessageByResource(@PathVariable("resource_id") final Long resourceId,
                                                                 @PathVariable("message_id") final Long messageId) {
-        return null;
+        Message foundMessage = messageService.findByIdAndResourceId(resourceId, messageId);
+        return ResponseEntity.status(HttpStatus.FOUND).body(foundMessage);
     }
 
     @PostMapping("/{resource_id}/message")
     @Override
     public ResponseEntity<Message> createCommentMessageInResource(@PathVariable("resource_id") final Long resourceId,
                                                                   @Valid @RequestBody final CreateMessageDto message) {
-        return null;
+        Message converted = modelMapper.map(message, Message.class);
+        Message saved = messageService.save(converted);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PutMapping("/{resource_id}/message")
@@ -70,16 +86,18 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
                                                                   @Valid @RequestBody final UpdateMessageDto message) {
 
         Message converted = modelMapper.map(message, Message.class);
-        System.out.println(converted);
+        Message updated = messageService.update(converted);
 
-        return null;
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{resource_id}/comment/{comment_id}")
     @Override
     public ResponseEntity<Void> deleteAllCommentMessagesOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                    @PathVariable("comment_id") final Long commentId) {
-        return null;
+        //commentService.deleteById(commentId);
+        commentService.deleteMessagesByResourceIdAndCommentId(resourceId, commentId);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{resource_id}/comment/{comment_id}/message/{message_id}")
@@ -87,14 +105,17 @@ public class ResourcesRestControllerImpl implements ResourcesRestController {
     public ResponseEntity<Void> deleteCommentMessageOfResource(@PathVariable("resource_id") final Long resourceId,
                                                                @PathVariable("comment_id") final Long commentId,
                                                                @PathVariable("message_id") final Long messageId) {
-        return null;
+
+        messageService.deleteMessageByIdFromCommentAndResource(messageId, commentId, resourceId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{resource_id}/comment/{comment_id}")
     @Override
     public ResponseEntity<Comment> findCommentByIdAndResource(@PathVariable("resource_id") final Long resourceId,
                                                               @PathVariable("comment_id") final Long commentId) {
-        return null;
+        Comment foundComment = commentService.findById(commentId);
+        return ResponseEntity.status(HttpStatus.FOUND).body(foundComment);
     }
 
     //endregion

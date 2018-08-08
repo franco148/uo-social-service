@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,10 +17,11 @@ import java.util.Set;
 @ToString(exclude = {"shared", "sharedWithMe", "messages"})
 
 @Entity
+@Table(name = "participants")
 public class Participant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @JsonBackReference

@@ -1,15 +1,15 @@
 package com.umssonline.social.services.impl;
 
+import com.umssonline.social.exceptions.InvalidResourceException;
 import com.umssonline.social.models.dto.participant.ParticipantDto;
 import com.umssonline.social.models.entity.Comment;
 import com.umssonline.social.models.entity.Participant;
 import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
+import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
 import com.umssonline.social.repositories.feign.UsersClient;
 import com.umssonline.social.services.CommentService;
-import com.umssonline.social.services.ParticipantService;
-import com.umssonline.social.services.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -34,10 +33,7 @@ public class CommentServiceImpl implements CommentService {
     private ExtendedResourceDao resourceDao;
 
     @Autowired
-    private ResourceService resourceService;
-
-    @Autowired
-    private ParticipantService participantService;
+    private ExtendedParticipantDao participantDao;
 
     @Autowired
     private UsersClient usersClient;
@@ -46,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
     private ModelMapper modelMapper;
     //endregion
 
-    //region SocialService Members
+    //region CrudSocialService Members
     @Transactional(readOnly = true)
     @Override
     public Comment findById(Serializable id) {
@@ -75,14 +71,17 @@ public class CommentServiceImpl implements CommentService {
             resourceDao.create(commentedResource);
         }
 
-        ParticipantDto createdBy = usersClient.findParticipantDto(entity.getCreatedBy().getId());
-        if (createdBy == null) {
-            throw new EntityNotFoundException("Participant with id: " + entity.getCreatedBy().getId() + " does not exist.");
+        ParticipantDto participantExists = usersClient.findParticipantDto(entity.getCreatedBy().getId());
+        if (participantExists == null) {
+            throw new InvalidResourceException("Participant with id: " + entity.getCreatedBy().getId() + " does not exist.");
+        } else {
+            Participant createdBy = participantDao.findById(entity.getCreatedBy().getId());
+            if (createdBy == null) {
+                participantDao.create(entity.getCreatedBy());
+            }
         }
 
-        entity.setCommentedResource(commentedResource);
         return commentDao.create(entity);
-        //return null;
     }
 
     @Transactional
@@ -104,6 +103,16 @@ public class CommentServiceImpl implements CommentService {
     }
     //endregion
 
-    //region Helpers
+    //region CommentService Members
+
+    @Transactional
+    @Override
+    public void deleteMessagesByResourceIdAndCommentId(Serializable resourceId, Serializable commentId) {
+        boolean removedMessages = commentDao.deleteMessagesByResourceIdAndCommentId(resourceId, commentId);
+        log.warn("Were comment and its messages removed? = " + removedMessages);
+
+        commentDao.deleteById(commentId);
+    }
+
     //endregion
 }

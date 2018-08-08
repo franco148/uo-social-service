@@ -10,6 +10,7 @@ import com.umssonline.social.services.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -27,7 +28,7 @@ public class ShareServiceImpl implements ShareService {
     private ParticipantService participantService;
     //endregion
 
-    //region SocialService Members
+    //region CrudSocialService Members
     @Override
     public Share findById(Serializable id) {
         return shareDao.findById(id);
@@ -47,17 +48,17 @@ public class ShareServiceImpl implements ShareService {
     public Share save(Share share) {
 
         if (share.getSharedResource() == null || share.getCreatedBy() == null) {
-            //throw new Exception("Neither Resource nor CreatedBy properties can be null.");
+            throw new EntityNotFoundException("Neither Resource nor CreatedBy properties can be null.");
         }
 
         Resource resourceFromDb = resourceService.findById(share.getSharedResource().getId());
         if (resourceFromDb == null) {
-            //throw new Exception("Share can not be created, it does not have a related Resource");
+            throw new EntityNotFoundException("Share can not be created, it does not have a related Resource");
         }
 
         Participant participantFromDb = participantService.findById(share.getCreatedBy().getId());
         if (participantFromDb == null) {
-            //throw new Exception("The owner who is creating the share does not exists.");
+            throw new EntityNotFoundException("The owner who is creating the share does not exists.");
         }
 
         share.setSharedResource(resourceFromDb);

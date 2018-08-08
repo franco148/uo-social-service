@@ -13,7 +13,7 @@ public abstract class AbstractJpaDao<TEntity> implements SocialServiceDao<TEntit
     private Class<TEntity> clazz;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
     //endregion
 
     //region Getters & Setters

@@ -3,6 +3,8 @@ package com.umssonline.social.models.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -12,10 +14,11 @@ import javax.persistence.*;
 @ToString(exclude = {"score", "share", "comment"})
 
 @Entity
+@Table(name = "resources")
 public class Resource {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Enumerated(EnumType.STRING)
     private ResourceType type;

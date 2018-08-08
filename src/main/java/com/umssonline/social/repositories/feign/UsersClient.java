@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Component
-@FeignClient("AUTH-SERVICE/users")
+@FeignClient("AUTH-SERVICE")
 public interface UsersClient {
 
     @RequestMapping
     (
-        value = "/{user_id}",
+        value = "/users/{user_id}",
         method = RequestMethod.GET
     )
     ParticipantDto findParticipantDto(@PathVariable("user_id") final Long participantId);
 
     @RequestMapping
     (
-        value = "/{user_id}",
+        value = "/users/{user_id}",
         method = RequestMethod.GET,
         consumes = {"application/json"}
     )
