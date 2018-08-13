@@ -18,6 +18,7 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(updatable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @Column(nullable = false)
@@ -25,7 +26,7 @@ public abstract class BaseEntity {
 
     @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FK_CreatedBy")
+    @JoinColumn(name = "FK_CreatedBy", updatable = false)
     private Participant createdBy;
     @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
