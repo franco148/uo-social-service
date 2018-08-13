@@ -1,4 +1,4 @@
-package com.umssonline.social.repositories.feign;
+package com.umssonline.social.feign;
 
 import com.umssonline.social.models.dto.participant.ParticipantDto;
 import com.umssonline.social.models.entity.Participant;

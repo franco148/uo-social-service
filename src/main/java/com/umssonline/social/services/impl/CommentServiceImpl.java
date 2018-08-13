@@ -8,7 +8,7 @@ import com.umssonline.social.models.entity.Resource;
 import com.umssonline.social.repositories.api.ExtendedCommentDao;
 import com.umssonline.social.repositories.api.ExtendedParticipantDao;
 import com.umssonline.social.repositories.api.ExtendedResourceDao;
-import com.umssonline.social.repositories.feign.UsersClient;
+import com.umssonline.social.feign.UsersClient;
 import com.umssonline.social.services.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

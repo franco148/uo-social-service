@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.umssonline.social.repositories.feign"})
+@EnableFeignClients(basePackages = {"com.umssonline.social.feign"})
 @EnableCircuitBreaker
 @SpringBootApplication
 public class SocialServiceApplication {
