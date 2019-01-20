@@ -1,5 +1,6 @@
-package com.umssonline.social.controllers;
+package com.umssonline.social.controllers.impl;
 
+import com.umssonline.social.controllers.RatesRestController;
 import com.umssonline.social.models.dto.rate.CreateRateDto;
 import com.umssonline.social.models.dto.rate.UpdateRateDto;
 import com.umssonline.social.models.entity.Rate;

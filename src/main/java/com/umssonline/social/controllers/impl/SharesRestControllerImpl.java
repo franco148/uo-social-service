@@ -1,5 +1,6 @@
-package com.umssonline.social.controllers;
+package com.umssonline.social.controllers.impl;
 
+import com.umssonline.social.controllers.SharesRestController;
 import com.umssonline.social.models.entity.Share;
 import com.umssonline.social.services.CrudSocialService;
 import org.modelmapper.ModelMapper;
