@@ -1,5 +1,6 @@
-package com.umssonline.social.controllers;
+package com.umssonline.social.controllers.impl;
 
+import com.umssonline.social.controllers.ResourcesRestController;
 import com.umssonline.social.models.dto.comment.CreateCommentDto;
 import com.umssonline.social.models.dto.comment.CreateMessageDto;
 import com.umssonline.social.models.dto.comment.UpdateMessageDto;
